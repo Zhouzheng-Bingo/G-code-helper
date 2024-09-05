@@ -44,9 +44,12 @@ class RagRetriever(ModelBase, ABC):
 
         loader = PyPDFDirectoryLoader(path=self._pdf_data_path)
         docs = loader.load()
+        print(f"Loaded documents: {docs}")
 
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=240, chunk_overlap=40)
         documents = text_splitter.split_documents(docs)
+        print(f"Split documents: {documents}")
+
         self._vector = FAISS.from_documents(documents, self._embedding)
 
         self._retriever = self._vector.as_retriever(search_kwargs={"k": 6})
