@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-# @Time    : 2024/1/24 21:07
-# @Author  : nongbin
-# @FileName: api_backend.py
-# @Software: PyCharm
-# @Affiliation: tfswufe.edu.cn
 
 import os
 

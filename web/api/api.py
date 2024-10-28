@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-# @Time    : 2024/2/15 07:37
-# @Author  : nongbin
-# @FileName: api.py
-# @Software: PyCharm
-# @Affiliation: tfswufe.edu.cn
+
 import json
 from typing import Annotated
 

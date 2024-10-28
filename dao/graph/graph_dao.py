@@ -124,9 +124,9 @@ class GraphDao(object):
         return self.__relationship_matcher.match(nodes, r_type, **properties)
 
     @ensure_connection
-    def query_relationship_by_2person_name(self, first_person, second_person):
+    def query_relationship_by_2points(self, first_parameter, second_parameter):
         rel = self.__graph.run(
-            f"match(:`人物`{{name:'{first_person}'}})-[r]-(:`人物`{{name:'{second_person}'}}) return r, type(r)").data()
+            f"match(:`指令`{{name:'{first_parameter}'}})-[r]-(:`参数`{{name:'{second_parameter}'}}) return r, type(r)").data()
         return rel
 
     def query_path(self, start_node, end_node, rel_type, rel_properties):

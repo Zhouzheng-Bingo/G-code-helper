@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-# @Time    : 2024/2/18 15:53
-# @Author  : nongbin
-# @FileName: answer.py
-# @Software: PyCharm
-# @Affiliation: tfswufe.edu.cn
+
 from typing import Tuple, List, Any
 
 from dao.graph.graph_dao import GraphDao
@@ -15,12 +10,7 @@ from qa.question_parser import parse_question, check_entity, QuestionType
 def get_answer(question: str,
                history: List[List | None] = None) -> (
         Tuple[Any, QuestionType]):
-    """
-    根据问题获取答案或者完成任务
-    :param history:
-    :param question:
-    :return:
-    """
+
     question_type = parse_question(question)
     entities = check_entity(question)
 

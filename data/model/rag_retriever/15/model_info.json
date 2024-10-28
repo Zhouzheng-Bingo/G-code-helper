@@ -1,0 +1,11 @@
+{
+    "name": "rag_retriever",
+    "version": 15,
+    "description": "",
+    "created_time": "2024-09-09, 09:48:12",
+    "updated_time": "",
+    "creator": "",
+    "model_type": "",
+    "model_status": "ready",
+    "engine": "faiss"
+}

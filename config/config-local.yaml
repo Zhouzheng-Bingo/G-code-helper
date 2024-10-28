@@ -5,7 +5,7 @@ server:
 cache:
   node:
     fields:
-      - PersonId
+      - id
       - name
       - labels
   async: thread
@@ -80,8 +80,8 @@ lang-chain:
 
 
 api:
-  title: '  "遇见李白" created by Nong Bin' # 必须使用单引号
-  description: 'knowledge graph ang chatbot for chinese ancient poets and other cultures'
+  title: '  "G Code Helper" created by Bingo' # 必须使用单引号
+  description: 'knowledge graph ang chatbot for GJ306 system'
 log:
   level: INFO
 
