@@ -14,7 +14,13 @@ from qa.prompt_templates import HELLO_ANSWER_TEMPLATE, LLM_HINT
 _dao = GraphDao()
 
 
-def relation_tool(entities: List[_Value] | None) -> Tuple[str, QuestionType] | None:
+# def relation_tool(entities: List[_Value] | None) -> Tuple[str, QuestionType] | None:
+def relation_tool(*entities: _Value) -> Tuple[str, QuestionType] | None:
+    # 0.用question问大模型得到工艺
+    # 1.使用自己写的cypter语句获取模版
+    # 2.F:进给速度 有配置
+    # 3. 问题 ：entities[0]
+
     """G指令关系"""
     if not entities or len(entities) < 2:
         return None

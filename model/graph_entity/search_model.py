@@ -44,6 +44,7 @@ class EntitySearcher(ModelBase):
     def build(self, *args, **kwargs):
         self._logger.info("building entity searcher")
         self._model_status = ModelStatus.BUILDING
+        self._logger.info(f"Search key: {self._search_key}")
 
         try:
             self._build_model()
@@ -93,11 +94,46 @@ class EntitySearcher(ModelBase):
         automaton = pyahocorasick.Automaton()
 
         for i, entity in enumerate(self._node_entities()):
+
             value = _Value(*(entity[fn] for fn in FIELD_NAMES))
+
             automaton.add_word(entity[self._search_key], (i, value))
 
         automaton.make_automaton()
 
+        self._model = automaton
+        self._version = get_version()
+
+    def _build_model1(self):
+        automaton = pyahocorasick.Automaton()
+
+        entities = self._node_entities()
+        if entities is None:
+            self._logger.error("self._node_entities() returned None")
+            raise ValueError("NodeEntities returned None")
+
+        for i, entity in enumerate(entities):
+            if entity is None:
+                self._logger.warning(f"Entity at index {i} is None")
+                continue
+            try:
+                # 确保 entity 包含 self._search_key
+                search_key_value = entity[self._search_key]
+                print("=========================")
+                print(self._search_key)
+                if search_key_value is None:
+                    self._logger.warning(f"Entity at index {i} has None for search key '{self._search_key}'")
+                    continue
+                value = _Value(*(entity[fn] for fn in FIELD_NAMES))
+                automaton.add_word(search_key_value, (i, value))
+            except KeyError as e:
+                self._logger.error(f"Entity at index {i} missing key: {e}")
+                continue
+            except Exception as e:
+                self._logger.error(f"Unexpected error processing entity at index {i}: {e}")
+                continue
+
+        automaton.make_automaton()
         self._model = automaton
         self._version = get_version()
 

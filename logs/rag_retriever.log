@@ -290,3 +290,192 @@ If the error persists, please using management api.
 2024-10-28 23:56:55.204 | ERROR    | logger:error:58 - failed to build entity searcher: 'NoneType' object is not subscriptable
 2024-10-29 00:03:02.020 | INFO     | logger:info:37 - building entity searcher
 2024-10-29 00:03:02.028 | ERROR    | logger:error:58 - failed to build entity searcher: 'NoneType' object is not subscriptable
+2024-10-29 11:01:08.058 | INFO     | model.graph_entity.search_model:reload:75 - loading entity searcher [version:1]
+2024-10-29 11:01:08.062 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2024-10-29 11:01:42.047 | INFO     | logger:info:37 - building entity searcher
+2024-10-29 11:01:42.050 | ERROR    | logger:error:58 - failed to build entity searcher: 'NoneType' object is not subscriptable
+2024-10-29 11:10:35.846 | INFO     | logger:info:37 - building entity searcher
+2024-10-29 11:10:35.849 | ERROR    | logger:error:58 - failed to build entity searcher: 'NoneType' object is not subscriptable
+2024-10-29 11:20:25.889 | INFO     | logger:info:37 - building entity searcher
+2024-10-29 11:20:25.895 | ERROR    | logger:error:58 - failed to build entity searcher: 'NoneType' object is not subscriptable
+2024-10-29 11:24:27.735 | INFO     | logger:info:37 - building entity searcher
+2024-10-29 11:24:27.740 | ERROR    | logger:error:58 - failed to build entity searcher: 'NoneType' object is not subscriptable
+2025-01-04 16:22:16.839 | INFO     | model.graph_entity.search_model:reload:75 - loading entity searcher [version:1]
+2025-01-04 16:22:16.862 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-04 16:53:56.331 | INFO     | logger:info:37 - building entity searcher
+2025-01-04 16:53:56.362 | ERROR    | logger:error:58 - failed to build entity searcher: 'NoneType' object is not subscriptable
+2025-01-04 16:56:09.666 | INFO     | model.graph_entity.search_model:reload:75 - loading entity searcher [version:1]
+2025-01-04 16:56:09.675 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-04 20:57:39.158 | INFO     | logger:info:37 - building entity searcher
+2025-01-05 16:58:33.710 | INFO     | logger:info:37 - building entity searcher
+2025-01-05 17:27:55.602 | INFO     | logger:info:37 - building entity searcher
+2025-01-05 17:29:08.339 | INFO     | logger:info:37 - building entity searcher
+2025-01-05 17:31:49.355 | INFO     | logger:info:37 - building entity searcher
+2025-01-05 17:31:49.357 | INFO     | logger:info:37 - Search key: name
+2025-01-05 17:39:30.959 | INFO     | logger:info:37 - building entity searcher
+2025-01-05 17:39:30.961 | INFO     | logger:info:37 - Search key: name
+2025-01-05 17:42:11.854 | INFO     | logger:info:37 - building entity searcher
+2025-01-05 17:42:11.855 | INFO     | logger:info:37 - Search key: name
+2025-01-05 20:18:10.208 | INFO     | logger:info:37 - building version 18
+2025-01-05 20:18:11.483 | INFO     | model.rag.retriever_model:build:58 - vector db built successfully
+2025-01-05 20:18:11.483 | INFO     | logger:info:37 - Removed obsolete model version 13
+2025-01-05 20:18:11.484 | INFO     | model.rag.retriever_model:dump:104 - successfully dumped vector db
+2025-01-05 20:19:18.465 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-05 20:19:18.472 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-05 20:21:02.591 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-05 20:21:02.591 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-05 20:23:15.748 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-05 20:23:15.749 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-05 20:23:54.458 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-05 20:23:54.459 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-05 20:28:51.150 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-05 20:28:51.151 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-05 20:28:55.157 | WARNING  | logger:warning:51 - Model not loaded. Loading model...
+2025-01-05 20:28:55.157 | INFO     | model.rag.retriever_model:reload:66 - loading vector db [version:18]
+2025-01-05 20:28:55.158 | INFO     | logger:info:37 - loading vector db
+2025-01-05 20:28:55.158 | ERROR    | model.rag.retriever_model:reload:75 - failed to load vector db [version:18]
+2025-01-05 20:28:55.158 | WARNING  | logger:warning:51 - Failed to load model: Failed to load model: ValueError('The de-serialization relies loading a pickle file. Pickle files can be modified to deliver a malicious payload that results in execution of arbitrary code on your machine.You will need to set `allow_dangerous_deserialization` to `True` to enable deserialization. If you do this, make sure that you trust the source of the data. For example, if you are loading a file that you created, and no that no one else has modified the file, then this is safe to do. Do not set this to `True` if you are loading a file from an untrusted source (e.g., some random site on the internet.).')
+Attempting to build model...
+This may take a while...
+If the error persists, please using management api.
+2025-01-05 20:28:55.158 | INFO     | logger:info:37 - building version 19
+2025-01-05 20:28:55.249 | INFO     | model.rag.retriever_model:build:58 - vector db built successfully
+2025-01-05 20:28:55.251 | INFO     | logger:info:37 - Removed obsolete model version 14
+2025-01-05 20:28:55.253 | INFO     | model.rag.retriever_model:dump:104 - successfully dumped vector db
+2025-01-05 20:32:35.045 | INFO     | logger:info:37 - building version 20
+2025-01-05 20:32:35.425 | INFO     | model.rag.retriever_model:build:58 - vector db built successfully
+2025-01-05 20:32:35.426 | INFO     | logger:info:37 - Removed obsolete model version 15
+2025-01-05 20:32:35.427 | INFO     | model.rag.retriever_model:dump:104 - successfully dumped vector db
+2025-01-05 20:32:54.228 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-05 20:32:54.228 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-05 20:34:38.796 | INFO     | logger:info:37 - building version 21
+2025-01-05 20:34:39.154 | INFO     | model.rag.retriever_model:build:58 - vector db built successfully
+2025-01-05 20:34:39.155 | INFO     | logger:info:37 - Removed obsolete model version 16
+2025-01-05 20:34:39.156 | INFO     | model.rag.retriever_model:dump:104 - successfully dumped vector db
+2025-01-05 20:34:50.682 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-05 20:34:50.683 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-05 20:36:23.479 | INFO     | logger:info:37 - building version 22
+2025-01-05 20:36:23.667 | INFO     | model.rag.retriever_model:build:58 - vector db built successfully
+2025-01-05 20:36:23.667 | INFO     | logger:info:37 - Removed obsolete model version 17
+2025-01-05 20:36:23.668 | INFO     | model.rag.retriever_model:dump:104 - successfully dumped vector db
+2025-01-05 20:36:35.373 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-05 20:36:35.373 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-06 13:47:20.856 | INFO     | logger:info:37 - building entity searcher
+2025-01-06 13:47:20.857 | INFO     | logger:info:37 - Search key: name
+2025-01-06 13:47:20.884 | ERROR    | logger:error:58 - failed to build entity searcher: 'NoneType' object is not subscriptable
+2025-01-06 13:50:04.438 | INFO     | logger:info:37 - building entity searcher
+2025-01-06 13:50:04.442 | INFO     | logger:info:37 - Search key: name
+2025-01-06 14:00:43.297 | INFO     | logger:info:37 - building entity searcher
+2025-01-06 14:00:43.300 | INFO     | logger:info:37 - Search key: name
+2025-01-06 14:07:33.874 | INFO     | logger:info:37 - building entity searcher
+2025-01-06 14:07:33.876 | INFO     | logger:info:37 - Search key: name
+2025-01-06 14:07:33.894 | ERROR    | logger:error:58 - Entity at index 0 missing key: 'id not found in row'
+2025-01-06 14:07:33.895 | ERROR    | logger:error:58 - Entity at index 1 missing key: 'id not found in row'
+2025-01-06 14:07:33.895 | INFO     | model.graph_entity.search_model:build:58 - successfully built entity searcher
+2025-01-06 14:07:33.896 | INFO     | logger:info:37 - dumping entity searcher
+2025-01-06 15:22:06.526 | INFO     | logger:info:37 - building entity searcher
+2025-01-06 15:22:06.527 | INFO     | logger:info:37 - Search key: name
+2025-01-06 15:22:06.531 | ERROR    | logger:error:58 - Entity at index 0 missing key: 'id not found in row'
+2025-01-06 15:22:06.531 | ERROR    | logger:error:58 - Entity at index 1 missing key: 'id not found in row'
+2025-01-06 15:22:06.532 | INFO     | model.graph_entity.search_model:build:58 - successfully built entity searcher
+2025-01-06 15:22:06.532 | INFO     | logger:info:37 - dumping entity searcher
+2025-01-06 15:24:01.103 | INFO     | logger:info:37 - building entity searcher
+2025-01-06 15:24:01.105 | INFO     | logger:info:37 - Search key: name
+2025-01-06 15:24:01.110 | ERROR    | logger:error:58 - Entity at index 0 missing key: 'id not found in row'
+2025-01-06 15:24:01.110 | ERROR    | logger:error:58 - Entity at index 1 missing key: 'id not found in row'
+2025-01-06 15:24:01.112 | INFO     | model.graph_entity.search_model:build:58 - successfully built entity searcher
+2025-01-06 15:24:01.112 | INFO     | logger:info:37 - dumping entity searcher
+2025-01-06 15:27:43.222 | INFO     | logger:info:37 - building entity searcher
+2025-01-06 15:27:43.223 | INFO     | logger:info:37 - Search key: name
+2025-01-06 15:27:43.228 | ERROR    | logger:error:58 - Entity at index 0 missing key: 'id not found in row'
+2025-01-06 15:27:43.229 | ERROR    | logger:error:58 - Entity at index 1 missing key: 'id not found in row'
+2025-01-06 15:27:43.229 | INFO     | model.graph_entity.search_model:build:58 - successfully built entity searcher
+2025-01-06 15:27:43.229 | INFO     | logger:info:37 - dumping entity searcher
+2025-01-06 15:33:54.711 | INFO     | logger:info:37 - building entity searcher
+2025-01-06 15:33:54.714 | INFO     | logger:info:37 - Search key: name
+2025-01-06 15:40:29.324 | INFO     | logger:info:37 - building entity searcher
+2025-01-06 15:40:29.325 | INFO     | logger:info:37 - Search key: name
+2025-01-06 15:43:31.105 | INFO     | model.graph_entity.search_model:build:58 - successfully built entity searcher
+2025-01-06 15:43:31.761 | INFO     | logger:info:37 - dumping entity searcher
+2025-01-06 15:43:31.763 | INFO     | model.graph_entity.search_model:dump:70 - successfully dumped entity searcher
+2025-01-06 15:57:29.076 | INFO     | logger:info:37 - building entity searcher
+2025-01-06 15:57:29.079 | INFO     | logger:info:37 - Search key: name
+2025-01-06 15:58:15.328 | ERROR    | logger:error:58 - failed to build entity searcher: can only concatenate str (not "_Value") to str
+2025-01-06 15:58:47.261 | INFO     | logger:info:37 - building entity searcher
+2025-01-06 15:58:47.264 | INFO     | logger:info:37 - Search key: name
+2025-01-06 15:58:47.267 | ERROR    | logger:error:58 - failed to build entity searcher: can only concatenate str (not "_Value") to str
+2025-01-06 16:00:01.149 | INFO     | logger:info:37 - building entity searcher
+2025-01-06 16:00:01.151 | INFO     | logger:info:37 - Search key: name
+2025-01-06 16:02:50.422 | INFO     | logger:info:37 - building entity searcher
+2025-01-06 16:02:50.423 | INFO     | logger:info:37 - Search key: name
+2025-01-06 16:02:50.426 | INFO     | model.graph_entity.search_model:build:58 - successfully built entity searcher
+2025-01-06 16:02:50.426 | INFO     | logger:info:37 - dumping entity searcher
+2025-01-06 16:02:50.427 | INFO     | model.graph_entity.search_model:dump:70 - successfully dumped entity searcher
+2025-01-06 16:07:35.548 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-06 16:07:35.557 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-06 16:08:26.311 | WARNING  | logger:warning:51 - Model not loaded. Loading model...
+2025-01-06 16:08:26.312 | INFO     | model.rag.retriever_model:reload:66 - loading vector db [version:22]
+2025-01-06 16:08:26.329 | INFO     | logger:info:37 - loading vector db
+2025-01-06 16:08:26.329 | ERROR    | model.rag.retriever_model:reload:75 - failed to load vector db [version:22]
+2025-01-06 16:08:26.329 | WARNING  | logger:warning:51 - Failed to load model: Failed to load model: ValueError('The de-serialization relies loading a pickle file. Pickle files can be modified to deliver a malicious payload that results in execution of arbitrary code on your machine.You will need to set `allow_dangerous_deserialization` to `True` to enable deserialization. If you do this, make sure that you trust the source of the data. For example, if you are loading a file that you created, and no that no one else has modified the file, then this is safe to do. Do not set this to `True` if you are loading a file from an untrusted source (e.g., some random site on the internet.).')
+Attempting to build model...
+This may take a while...
+If the error persists, please using management api.
+2025-01-06 16:08:26.329 | INFO     | logger:info:37 - building version 23
+2025-01-06 16:08:27.263 | INFO     | model.rag.retriever_model:build:58 - vector db built successfully
+2025-01-06 16:08:27.273 | INFO     | logger:info:37 - Removed obsolete model version 18
+2025-01-06 16:08:27.273 | INFO     | model.rag.retriever_model:dump:104 - successfully dumped vector db
+2025-01-06 16:14:36.095 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-06 16:14:36.097 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-06 16:19:56.581 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-06 16:19:56.582 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-06 16:20:11.178 | WARNING  | logger:warning:51 - Model not loaded. Loading model...
+2025-01-06 16:20:11.178 | INFO     | model.rag.retriever_model:reload:66 - loading vector db [version:23]
+2025-01-06 16:20:11.179 | INFO     | logger:info:37 - loading vector db
+2025-01-06 16:20:11.179 | ERROR    | model.rag.retriever_model:reload:75 - failed to load vector db [version:23]
+2025-01-06 16:20:11.179 | WARNING  | logger:warning:51 - Failed to load model: Failed to load model: ValueError('The de-serialization relies loading a pickle file. Pickle files can be modified to deliver a malicious payload that results in execution of arbitrary code on your machine.You will need to set `allow_dangerous_deserialization` to `True` to enable deserialization. If you do this, make sure that you trust the source of the data. For example, if you are loading a file that you created, and no that no one else has modified the file, then this is safe to do. Do not set this to `True` if you are loading a file from an untrusted source (e.g., some random site on the internet.).')
+Attempting to build model...
+This may take a while...
+If the error persists, please using management api.
+2025-01-06 16:20:11.179 | INFO     | logger:info:37 - building version 24
+2025-01-06 16:20:11.336 | INFO     | model.rag.retriever_model:build:58 - vector db built successfully
+2025-01-06 16:20:11.337 | INFO     | logger:info:37 - Removed obsolete model version 19
+2025-01-06 16:20:11.338 | INFO     | model.rag.retriever_model:dump:104 - successfully dumped vector db
+2025-01-06 16:21:50.426 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-06 16:21:50.427 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-06 16:22:58.573 | WARNING  | logger:warning:51 - Model not loaded. Loading model...
+2025-01-06 16:22:58.574 | INFO     | model.rag.retriever_model:reload:66 - loading vector db [version:24]
+2025-01-06 16:22:58.574 | INFO     | logger:info:37 - loading vector db
+2025-01-06 16:22:58.574 | ERROR    | model.rag.retriever_model:reload:75 - failed to load vector db [version:24]
+2025-01-06 16:22:58.575 | WARNING  | logger:warning:51 - Failed to load model: Failed to load model: ValueError('The de-serialization relies loading a pickle file. Pickle files can be modified to deliver a malicious payload that results in execution of arbitrary code on your machine.You will need to set `allow_dangerous_deserialization` to `True` to enable deserialization. If you do this, make sure that you trust the source of the data. For example, if you are loading a file that you created, and no that no one else has modified the file, then this is safe to do. Do not set this to `True` if you are loading a file from an untrusted source (e.g., some random site on the internet.).')
+Attempting to build model...
+This may take a while...
+If the error persists, please using management api.
+2025-01-06 16:22:58.575 | INFO     | logger:info:37 - building version 25
+2025-01-06 16:22:58.732 | INFO     | model.rag.retriever_model:build:58 - vector db built successfully
+2025-01-06 16:22:58.733 | INFO     | logger:info:37 - Removed obsolete model version 20
+2025-01-06 16:22:58.734 | INFO     | model.rag.retriever_model:dump:104 - successfully dumped vector db
+2025-01-06 16:28:20.902 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-06 16:28:20.903 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-06 16:30:08.451 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-06 16:30:08.454 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-06 16:33:48.632 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-06 16:33:48.634 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-06 16:37:59.339 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-06 16:37:59.340 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-06 16:42:22.616 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-06 16:42:22.617 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-06 16:47:15.198 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-06 16:47:15.199 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-06 16:48:33.227 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-06 16:48:33.227 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-06 16:53:49.145 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-06 16:53:49.146 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-06 16:54:24.231 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-06 16:54:24.232 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-06 16:57:46.331 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-06 16:57:46.332 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-06 17:00:05.971 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-06 17:00:05.971 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-06 17:01:20.272 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-06 17:01:20.273 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]

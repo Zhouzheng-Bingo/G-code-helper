@@ -125,8 +125,12 @@ class GraphDao(object):
 
     @ensure_connection
     def query_relationship_by_2points(self, first_parameter, second_parameter):
+        print("query_relationship_by_2points")
         rel = self.__graph.run(
-            f"match(:`指令`{{name:'{first_parameter}'}})-[r]-(:`参数`{{name:'{second_parameter}'}}) return r, type(r)").data()
+
+            # f"match(:`Process`{{name:'{first_parameter}'}})-[r]-(:`subProcess`{{name:'{second_parameter}'}}) return r, type(r)").data()
+            # match(:`Process`name: '外圆工艺'})-[r] - (:`SubProcess`{name:'外圆'})return r, type(r)
+            f"match(:`Process`{{name:'{first_parameter}'}})-[r]-(:`SubProcess`{{name:'{second_parameter}'}}) return r, type(r)").data()
         return rel
 
     def query_path(self, start_node, end_node, rel_type, rel_properties):
@@ -139,3 +143,4 @@ class GraphDao(object):
     def run_cypher(self, query):
         result = self.__graph.run(query)
         return result
+

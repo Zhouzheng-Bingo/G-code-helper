@@ -1,3 +1,3 @@
-PersonId,name,labels
-32540,李白,唐-人物
-32541,高力士,唐-人物
+id,name,labels
+4,螺纹工艺,SubProcess
+7,外锥面,SubProcess
