@@ -481,3 +481,7 @@ If the error persists, please using management api.
 2025-01-06 17:00:05.971 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
 2025-01-06 17:01:20.272 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
 2025-01-06 17:01:20.273 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-09 10:51:49.354 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-09 10:51:49.355 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-09 11:04:00.491 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-09 11:04:00.492 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
