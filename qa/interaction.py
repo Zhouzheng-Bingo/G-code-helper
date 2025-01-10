@@ -105,10 +105,12 @@ def chat_with_gcode(message, history):
                 time.sleep(0.05)
                 yield response[:i + 1]
 
-        elif answers[-1] == QuestionType.HELLO or answers[-1] == QuestionType.UNKNOWN:
-            # 处理问候语和未知问题
-            partial_message = answers[0]  # 直接使用字符串
-            yield partial_message
+        elif answers[-1] == QuestionType.HELLO:
+            # 处理问候语
+            response = answers[0]  # 直接使用字符串
+            for i in range(len(response)):
+                time.sleep(0.05)
+                yield response[:i + 1]
 
         elif answers[-1] == QuestionType.PDF_DOCUMENT:
             # 处理PDF文档查询
@@ -118,6 +120,18 @@ def chat_with_gcode(message, history):
                 yield partial_message
             partial_message += answers[0][0]
             yield partial_message
+
+        elif answers[-1] == QuestionType.UNKNOWN:
+            # 处理未知问题，包括G代码知识问答
+            try:
+                partial_message = ""
+                for chunk in answers[0][1]:
+                    if chunk.choices[0].delta.content:
+                        partial_message += chunk.choices[0].delta.content
+                        yield partial_message
+            except Exception as e:
+                print(f"处理未知问题时出错: {e}")
+                yield "抱歉，处理您的问题时出现了错误。"
 
         else:
             raise Exception("Unknown question type")

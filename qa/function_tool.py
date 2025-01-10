@@ -59,9 +59,18 @@ def process_unknown_question_tool(
         question: str,
         history: List[List[str] | None] = None,
 ) -> Tuple[Tuple[str, Stream[ChatCompletionChunk]], QuestionType]:
-    head_: str = ClientFactory().get_client().chat_with_ai(LLM_HINT)
-    response = ClientFactory().get_client().chat_with_ai_stream(question, history[-5:])
-    return (head_, response), QuestionType.UNKNOWN
+    """处理未知类型的问题，包括纯知识性问题"""
+    prompt = f"""
+    你是一个数控加工专家。请回答用户关于数控加工的问题。
+    如果是G代码相关的问题，请详细解释其功能和用法。
+    如果是工艺相关的问题，请从专业角度给出建议。
+    请用中文回答。
+
+    用户问题: {question}
+    """
+    
+    response = ClientFactory().get_client().chat_with_ai_stream(prompt, history[-5:] if history else None)
+    return ("", response), QuestionType.UNKNOWN
 
 TOOLS_MAPPING = {
     QuestionType.GCODE_KNOWLEDGE_GRAPH: relation_tool,

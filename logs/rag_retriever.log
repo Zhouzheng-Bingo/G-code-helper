@@ -491,3 +491,69 @@ If the error persists, please using management api.
 2025-01-09 19:21:54.732 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
 2025-01-09 20:20:33.770 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
 2025-01-09 20:20:33.771 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-10 09:52:26.904 | INFO     | logger:info:37 - building entity searcher
+2025-01-10 09:52:26.905 | INFO     | logger:info:37 - Search key: name
+2025-01-10 09:52:26.916 | INFO     | model.graph_entity.search_model:build:58 - successfully built entity searcher
+2025-01-10 09:52:26.917 | INFO     | logger:info:37 - dumping entity searcher
+2025-01-10 09:52:26.918 | INFO     | model.graph_entity.search_model:dump:70 - successfully dumped entity searcher
+2025-01-10 10:02:14.073 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-10 10:02:14.074 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-10 10:02:37.351 | WARNING  | logger:warning:51 - Model not loaded. Loading model...
+2025-01-10 10:02:37.351 | INFO     | model.rag.retriever_model:reload:66 - loading vector db [version:25]
+2025-01-10 10:02:37.352 | INFO     | logger:info:37 - loading vector db
+2025-01-10 10:02:37.352 | ERROR    | model.rag.retriever_model:reload:75 - failed to load vector db [version:25]
+2025-01-10 10:02:37.352 | WARNING  | logger:warning:51 - Failed to load model: Failed to load model: ValueError('The de-serialization relies loading a pickle file. Pickle files can be modified to deliver a malicious payload that results in execution of arbitrary code on your machine.You will need to set `allow_dangerous_deserialization` to `True` to enable deserialization. If you do this, make sure that you trust the source of the data. For example, if you are loading a file that you created, and no that no one else has modified the file, then this is safe to do. Do not set this to `True` if you are loading a file from an untrusted source (e.g., some random site on the internet.).')
+Attempting to build model...
+This may take a while...
+If the error persists, please using management api.
+2025-01-10 10:02:37.353 | INFO     | logger:info:37 - building version 26
+2025-01-10 10:02:37.775 | INFO     | model.rag.retriever_model:build:58 - vector db built successfully
+2025-01-10 10:02:37.776 | INFO     | logger:info:37 - Removed obsolete model version 21
+2025-01-10 10:02:37.777 | INFO     | model.rag.retriever_model:dump:104 - successfully dumped vector db
+2025-01-10 10:06:45.025 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-10 10:06:45.026 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-10 10:17:05.632 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-10 10:17:05.633 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-10 10:17:08.310 | WARNING  | logger:warning:51 - Model not loaded. Loading model...
+2025-01-10 10:17:08.310 | INFO     | model.rag.retriever_model:reload:66 - loading vector db [version:26]
+2025-01-10 10:17:08.311 | INFO     | logger:info:37 - loading vector db
+2025-01-10 10:17:08.311 | ERROR    | model.rag.retriever_model:reload:75 - failed to load vector db [version:26]
+2025-01-10 10:17:08.311 | WARNING  | logger:warning:51 - Failed to load model: Failed to load model: ValueError('The de-serialization relies loading a pickle file. Pickle files can be modified to deliver a malicious payload that results in execution of arbitrary code on your machine.You will need to set `allow_dangerous_deserialization` to `True` to enable deserialization. If you do this, make sure that you trust the source of the data. For example, if you are loading a file that you created, and no that no one else has modified the file, then this is safe to do. Do not set this to `True` if you are loading a file from an untrusted source (e.g., some random site on the internet.).')
+Attempting to build model...
+This may take a while...
+If the error persists, please using management api.
+2025-01-10 10:17:08.312 | INFO     | logger:info:37 - building version 27
+2025-01-10 10:17:08.477 | INFO     | model.rag.retriever_model:build:58 - vector db built successfully
+2025-01-10 10:17:08.478 | INFO     | logger:info:37 - Removed obsolete model version 22
+2025-01-10 10:17:08.480 | INFO     | model.rag.retriever_model:dump:104 - successfully dumped vector db
+2025-01-10 10:25:02.066 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-10 10:25:02.067 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-10 10:57:22.473 | WARNING  | logger:warning:51 - Failed to connect to Neo4j graph database: Cannot open connection to ConnectionProfile('bolt://localhost:7687')
+2025-01-10 10:58:39.666 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-10 10:58:39.666 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-10 10:59:02.920 | WARNING  | logger:warning:51 - Model not loaded. Loading model...
+2025-01-10 10:59:02.921 | INFO     | model.rag.retriever_model:reload:66 - loading vector db [version:27]
+2025-01-10 10:59:02.921 | INFO     | logger:info:37 - loading vector db
+2025-01-10 10:59:02.922 | ERROR    | model.rag.retriever_model:reload:75 - failed to load vector db [version:27]
+2025-01-10 10:59:02.922 | WARNING  | logger:warning:51 - Failed to load model: Failed to load model: ValueError('The de-serialization relies loading a pickle file. Pickle files can be modified to deliver a malicious payload that results in execution of arbitrary code on your machine.You will need to set `allow_dangerous_deserialization` to `True` to enable deserialization. If you do this, make sure that you trust the source of the data. For example, if you are loading a file that you created, and no that no one else has modified the file, then this is safe to do. Do not set this to `True` if you are loading a file from an untrusted source (e.g., some random site on the internet.).')
+Attempting to build model...
+This may take a while...
+If the error persists, please using management api.
+2025-01-10 10:59:02.923 | INFO     | logger:info:37 - building version 28
+2025-01-10 10:59:04.278 | INFO     | model.rag.retriever_model:build:58 - vector db built successfully
+2025-01-10 10:59:04.279 | INFO     | logger:info:37 - Removed obsolete model version 23
+2025-01-10 10:59:04.280 | INFO     | model.rag.retriever_model:dump:104 - successfully dumped vector db
+2025-01-10 15:05:29.155 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-10 15:05:29.156 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-10 15:12:34.438 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-10 15:12:34.439 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-10 15:14:29.522 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-10 15:14:29.523 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-10 15:22:26.715 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-10 15:22:26.716 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-10 15:26:23.658 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-10 15:26:23.659 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-10 15:31:29.220 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-10 15:31:29.222 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-01-10 15:39:37.715 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-01-10 15:39:37.715 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
