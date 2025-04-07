@@ -35,7 +35,7 @@ class ProcessSession:
         try:
             param_type = self.param_types.get(self.current_param, float)
             value = value.strip()
-            
+
             # 对于int类型，先检查是否是有效的整数
             if param_type == int:
                 try:
@@ -55,9 +55,9 @@ class ProcessSession:
                     raise ValueError(f"参数 {self.current_param} 必须是有效的数字")
             else:
                 converted_value = param_type(value)
-            
+
             self.param_values[self.current_param] = converted_value
-            
+
             current_index = self.param_list.index(self.current_param)
             if current_index < len(self.param_list) - 1:
                 self.current_param = self.param_list[current_index + 1]
@@ -74,4 +74,6 @@ class ProcessSession:
         self.__init__()
 
 # 全局会话状态
-current_session = ProcessSession() 
+current_session = ProcessSession()
+
+

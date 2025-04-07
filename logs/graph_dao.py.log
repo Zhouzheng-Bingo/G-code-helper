@@ -569,3 +569,5 @@ If the error persists, please using management api.
 2025-01-10 16:43:01.369 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
 2025-01-10 16:58:10.422 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
 2025-01-10 16:58:10.422 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-04-07 12:37:54.064 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-04-07 12:37:54.065 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]

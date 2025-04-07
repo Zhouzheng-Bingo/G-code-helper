@@ -4,6 +4,11 @@ from qa.session_state import current_session
 def test_gcode_generation():
     print("=== G代码生成测试 ===\n")
     
+    # 新的测试：
+    # 我要使用外圆工艺加工一个外圆，Cn=2, L=100.0, Tr=0.5, Cr=1.0, F=300.0
+    # 我要使用外圆工艺加工一个外圆，Cn是2，L是100.0，Tr是0.5，Cr是1.0，F是300.0
+    # 我要使用外圆工艺加工一个外圆，Cn=2
+
     test_cases = [
         # 测试用例1：完整流程 - 正确的参数
         [
