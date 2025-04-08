@@ -565,3 +565,4 @@ If the error persists, please using management api.
 2025-01-10 16:58:10.422 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
 2025-04-07 12:37:54.064 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
 2025-04-07 12:37:54.065 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-04-08 12:55:46.679 | WARNING  | logger:warning:51 - Failed to connect to Neo4j graph database: Cannot open connection to ConnectionProfile('bolt://localhost:7687')
