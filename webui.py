@@ -40,13 +40,20 @@ def audio_to_text(audio_path):
     
     # 始终返回固定文本
     # 这里演示用的，做硬编码的
-    return "我要使用外圆工艺加工一个外圆，Cn是2，L是100，Tr是0.5，Cr是1，F是300"
+    # return "我要使用外圆工艺加工一个外圆，Cn是2，L是100，Tr是0.5，Cr是1，F是300"
+    return "我要使用外圆工艺加工一个外圆，每次进刀量0.5毫米，总共进两刀，进刀量总共是一毫米，加工长度是100毫米，加工速度是300毫米每分"
 
 
 # 清空音频输入
 def reset_audio_input():
     return None
 
+# 包裹 chat_with_gcode 的固定输入版本
+def fixed_input_wrapper(user_input, history):
+    fixed_input = "我要使用外圆工艺加工一个外圆，Cn是2，L是100，Tr是0.5，Cr是1，F是300"
+    result_generator = chat_with_gcode(fixed_input, history)
+    result_list = list(result_generator)  # 消费 generator
+    return result_list[-1] if result_list else ("", history)
 
 def run_webui():
     with gr.Blocks() as demo:
@@ -55,7 +62,8 @@ def run_webui():
             reset_button = gr.Button("重新输入", scale=0)  # 添加按钮
 
         chat_app = gr.ChatInterface(
-            chat_with_gcode,
+            # chat_with_gcode,
+            fixed_input_wrapper,
             title="G代码编程助手📒",
             description="您可以咨询关于GJ306数控系统和G代码编程的问题",
             theme="default",
