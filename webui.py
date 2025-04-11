@@ -51,9 +51,9 @@ def reset_audio_input():
 # 包裹 chat_with_gcode 的固定输入版本
 def fixed_input_wrapper(user_input, history):
     fixed_input = "我要使用外圆工艺加工一个外圆，Cn是2，L是100，Tr是0.5，Cr是1，F是300"
-    result_generator = chat_with_gcode(fixed_input, history)
-    result_list = list(result_generator)  # 消费 generator
-    return result_list[-1] if result_list else ("", history)
+    # 逐步生成结果
+    for partial_result in chat_with_gcode(fixed_input, history):
+        yield partial_result
 
 def run_webui():
     with gr.Blocks() as demo:
