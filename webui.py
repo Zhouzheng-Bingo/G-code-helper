@@ -56,7 +56,7 @@ def fixed_input_wrapper(user_input, history):
         yield partial_result
 
 def run_webui():
-    with gr.Blocks() as demo:
+    with gr.Blocks(title="沈阳中科数控辅助编程大模型") as demo:
         with gr.Row():  # 横向布局
             audio_input = gr.Audio(source="microphone", type="filepath", label="语音输入", scale=1)
             reset_button = gr.Button("重新输入", scale=0)  # 添加按钮
