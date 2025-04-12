@@ -134,6 +134,10 @@ def chat_with_gcode(message, history):
                     if len(params) == len(param_list):
                         try:
                             gcode = generate_gcode(sub_process, params)
+                            # 添加硬编码的解释文本
+                            # explanation_before = "好的，"
+                            # explanation_after = "\n\n这段G代码的解释：\n1. 程序开始使用G50设置坐标系统\n2. G96 S180设置了恒线速切削，主轴转速为180转/分钟\n3. G00快速定位到起始点\n4. G71表示使用粗车循环，设置进给参数\n5. 使用G71子程序指令定义加工轮廓\n6. 加工完成后，使用M30结束程序\n\n总共进行了2次切削，每次进刀深度为0.5mm，加工长度为100mm，进给速度为300mm/min"
+                            # response = f"{explanation_before}已从您的输入中提取所有参数，生成的G代码：\n{gcode}{explanation_after}"
                             response = f"已从您的输入中提取所有参数，生成的G代码：\n{gcode}"
                             for i in range(len(response)):
                                 time.sleep(0.05)
@@ -171,6 +175,7 @@ def chat_with_gcode(message, history):
                         # 如果所有参数都已收集
                         try:
                             gcode = generate_gcode(sub_process, current_session.param_values)
+
                             response = f"已收集所有参数，生成的G代码：\n{gcode}"
                             current_session.clear()
                             for i in range(len(response)):
