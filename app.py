@@ -1,13 +1,16 @@
-
 import threading
+import os
+
+# 设置环境变量
+os.environ["PY_ENVIRONMENT"] = "local"
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 from api_backend import run_api
 from utils.schedule import get_scheduler
 from webui import run_webui
 
-import os
-# 设置环境变量
-os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+import matplotlib
+matplotlib.use('Agg')
 
 """如果遇到FileNotFoundError: [Errno 2] No such file or directory: '...\\ # 启用本地开发环境.yaml'问题，
 运行以下命令清除遗留的 PY_ENVIRONMENT 系统环境变量：

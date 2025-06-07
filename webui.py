@@ -34,13 +34,13 @@ __AVATAR = (
 #     return result["text"]
 def audio_to_text(audio_path):
     # 可选：tiny, base, small, medium, large
-    # model = whisper.load_model("medium")
-    # result = model.transcribe(audio_path)
-    # return result["text"]
+    model = whisper.load_model("tiny")
+    result = model.transcribe(audio_path)
+    return result["text"]
     
     # 始终返回固定文本
     # 这里演示用的，做硬编码的
-    return "我要使用外圆工艺加工一个外圆，Cn是2，L是100，Tr是0.5，Cr是1，F是300"
+    # return "我要使用外圆工艺加工一个外圆，Cn是2，L是100，Tr是0.5，Cr是1，F是300"
 
 
 # 清空音频输入
