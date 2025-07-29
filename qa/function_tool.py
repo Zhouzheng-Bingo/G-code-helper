@@ -32,15 +32,43 @@ def relation_tool(*entities: _Value) -> Tuple[str, QuestionType] | None:
     """G指令关系"""
     if not entities or len(entities) < 2:
         return None
-    relationship_match = _dao.query_relationship_by_2points(entities[0].name, entities[1].name)
-    if relationship_match:
-
-        rel = relationship_match[0]['type(r)']
-        if entities[0].name not in rel:
-            start_name = entities[0].name
+    
+    try:
+        # 安全检查实体对象是否有name属性
+        entity1_name = None
+        entity2_name = None
+        
+        if hasattr(entities[0], 'name'):
+            entity1_name = entities[0].name
+        elif isinstance(entities[0], str):
+            entity1_name = entities[0]
         else:
-            start_name = entities[1].name
-        return f"关系如下：{start_name}{rel}，详见:{relationship_match[0]['r']['Notes']}", QuestionType.GCODE_KNOWLEDGE_GRAPH
+            print(f"警告：实体[0]类型不支持: {type(entities[0])}")
+            return None
+            
+        if hasattr(entities[1], 'name'):
+            entity2_name = entities[1].name
+        elif isinstance(entities[1], str):
+            entity2_name = entities[1]
+        else:
+            print(f"警告：实体[1]类型不支持: {type(entities[1])}")
+            return None
+        
+        if not entity1_name or not entity2_name:
+            return None
+            
+        relationship_match = _dao.query_relationship_by_2points(entity1_name, entity2_name)
+        if relationship_match:
+            rel = relationship_match[0]['type(r)']
+            if entity1_name not in rel:
+                start_name = entity1_name
+            else:
+                start_name = entity2_name
+            return f"关系如下：{start_name}{rel}，详见:{relationship_match[0]['r']['Notes']}", QuestionType.GCODE_KNOWLEDGE_GRAPH
+            
+    except Exception as e:
+        print(f"relation_tool处理异常: {e}")
+        return None
 
 
 def document_search_tool(

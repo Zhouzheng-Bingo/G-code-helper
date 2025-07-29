@@ -22,12 +22,23 @@ def parse_question(question: str) -> QuestionType:
 
 
 def check_entity(question: str) -> List[_Value] | None:
-
-    code, msg, results = search(question)
-    if code == 0:
-        return results
-
-    else:
+    """
+    检查问题中的实体，添加异常处理
+    """
+    try:
+        code, msg, results = search(question)
+        if code == 0 and results is not None:
+            # 验证结果格式
+            if isinstance(results, list):
+                return results
+            else:
+                print(f"警告：实体搜索返回格式异常: {type(results)}")
+                return None
+        else:
+            print(f"实体搜索失败: code={code}, msg={msg}")
+            return None
+    except Exception as e:
+        print(f"check_entity异常: {e}")
         return None
 
 
