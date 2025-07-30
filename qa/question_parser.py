@@ -12,13 +12,46 @@ from qa.llm_centric_classifier import llm_centric_parse_process_type, get_llm_ce
 
 
 def parse_question(question: str) -> QuestionType:
-
-    prompt = get_question_parser_prompt(question)
-    parse_result = ClientFactory().get_client().chat_with_ai(prompt)
-    question_type = QUESTION_MAP[parse_result]
-    ic(question_type)
-
-    return question_type
+    """
+    使用统一的LLM意图分类器进行问题分类
+    """
+    try:
+        # 优先使用新的统一意图分类器
+        from qa.unified_intent_classifier import get_unified_classifier, IntentType
+        
+        unified_classifier = get_unified_classifier()
+        intent_result = unified_classifier.classify_intent(question)
+        
+        # 映射意图类型到问题类型
+        intent_to_question_map = {
+            IntentType.GREETING: QuestionType.HELLO,
+            IntentType.GCODE_KNOWLEDGE: QuestionType.GCODE_KNOWLEDGE_QUERY,
+            IntentType.PROCESS_TASK: QuestionType.PROCESS_TASK,
+            IntentType.PDF_DOCUMENT: QuestionType.PDF_DOCUMENT,
+            IntentType.UNKNOWN: QuestionType.UNKNOWN
+        }
+        
+        question_type = intent_to_question_map.get(intent_result.intent_type, QuestionType.UNKNOWN)
+        
+        print(f"🤖 统一LLM意图识别结果:")
+        print(f"   意图类型: {intent_result.intent_type.value}")
+        print(f"   问题类型: {question_type}")
+        print(f"   置信度: {intent_result.confidence}")
+        print(f"   推理: {intent_result.reasoning}")
+        
+        ic(question_type)
+        
+        return question_type
+        
+    except Exception as e:
+        print(f"⚠️ 统一意图分类器失败，使用原方法: {e}")
+        # 降级到原来的方法
+        prompt = get_question_parser_prompt(question)
+        parse_result = ClientFactory().get_client().chat_with_ai(prompt)
+        question_type = QUESTION_MAP.get(parse_result, QuestionType.UNKNOWN)
+        ic(question_type)
+        
+        return question_type
 
 
 def check_entity(question: str) -> List[_Value] | None:

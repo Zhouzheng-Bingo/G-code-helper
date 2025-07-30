@@ -105,6 +105,8 @@ TOOLS_MAPPING = {
     QuestionType.PDF_DOCUMENT: document_search_tool,
     QuestionType.HELLO: hello_tool,
     QuestionType.UNKNOWN: process_unknown_question_tool,
+    QuestionType.PROCESS_TASK: lambda *args: (None, QuestionType.PROCESS_TASK),  # 工艺任务在interaction.py中处理
+    QuestionType.GCODE_KNOWLEDGE_QUERY: process_unknown_question_tool,  # G代码知识咨询使用大模型回答
 }
 
 def map_question_to_function(
@@ -120,6 +122,8 @@ FUNCTION_ARGS_MAPPING = {
     QuestionType.PDF_DOCUMENT: lambda args: args[1:3],
     QuestionType.HELLO: lambda args: [],
     QuestionType.UNKNOWN: lambda args: args[1:3],
+    QuestionType.PROCESS_TASK: lambda args: [],  # 工艺任务不需要参数
+    QuestionType.GCODE_KNOWLEDGE_QUERY: lambda args: args[1:3],  # 与UNKNOWN相同的参数
 }
 
 def map_question_to_function_args(

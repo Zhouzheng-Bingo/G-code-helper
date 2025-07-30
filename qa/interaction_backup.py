@@ -1,14 +1,9 @@
-# -*- coding: utf-8 -*-
-"""
-改进的交互模块 - 基于统一LLM意图识别
-"""
-
 import time
 from typing import List, Optional, Iterator
 
 from qa.answer import get_answer
 from qa.question_type import QuestionType
-from qa.question_parser import parse_question, parse_process_type
+from qa.question_parser import parse_process_type
 from qa.function_tool import get_process_template, parse_template_params, generate_gcode
 from qa.session_state import current_session
 
@@ -25,6 +20,12 @@ PROCESS_MAPPING = {
 def extract_params_from_message(message: str, param_list: list, param_types: dict) -> dict:
     """
     从用户消息中提取参数值
+    Args:
+        message: 用户输入的消息
+        param_list: 参数列表
+        param_types: 参数类型字典
+    Returns:
+        dict: 提取的参数值字典
     """
     params = {}
     # 创建参数名的小写映射
@@ -77,80 +78,9 @@ def extract_params_from_message(message: str, param_list: list, param_types: dic
     
     return params
 
-def handle_process_task(message: str, process_info: dict):
-    """
-    处理工艺执行任务
-    """
-    response_parts = []
-    response_parts.append(f"识别到工艺类型：{process_info['main_process']}")
-    
-    if process_info["sub_process"]:
-        sub_process = process_info["sub_process"]
-        response_parts.append(f"具体子工艺：{sub_process}")
-        
-        template = get_process_template(sub_process)
-        if template:
-            param_list = parse_template_params(template)
-            
-            # 尝试从消息中提取参数
-            params = extract_params_from_message(message, param_list, current_session.param_types)
-            
-            # 如果提取到了所有参数
-            if len(params) == len(param_list):
-                try:
-                    gcode = generate_gcode(sub_process, params)
-                    return f"已从您的输入中提取所有参数，生成的G代码：\n{gcode}"
-                except Exception as e:
-                    response_parts.append(f"参数提取成功但生成G代码时出错: {str(e)}")
-            
-            # 如果只提取到部分参数，初始化会话并保存已有参数
-            current_session.init_session(
-                process_info["main_process"],
-                sub_process,
-                param_list
-            )
-            
-            # 保存已提取的参数
-            for param, value in params.items():
-                try:
-                    current_session.param_values[param] = value
-                    # 从待收集参数列表中移除已有参数
-                    if param in current_session.param_list:
-                        current_session.param_list.remove(param)
-                except ValueError as e:
-                    print(f"参数 {param} 设置失败: {e}")
-            
-            # 更新当前需要收集的参数
-            if current_session.param_list:
-                current_session.current_param = current_session.param_list[0]
-                response_parts.append("\n需要提供以下参数：")
-                for param in current_session.param_list:
-                    param_type = current_session.param_types.get(param, float)
-                    response_parts.append(f"- {param} ({param_type.__name__})")
-                response_parts.append(f"\n请输入参数 {current_session.current_param} ({current_session.param_types[current_session.current_param].__name__}类型)")
-            else:
-                # 如果所有参数都已收集
-                try:
-                    gcode = generate_gcode(sub_process, current_session.param_values)
-                    current_session.clear()
-                    return f"已收集所有参数，生成的G代码：\n{gcode}"
-                except Exception as e:
-                    response_parts.append(f"生成G代码时出错: {str(e)}")
-                    current_session.clear()
-        else:
-            response_parts.append("未找到对应的工艺模板")
-    else:
-        response_parts.append("请指定具体的子工艺类型。")
-        if process_info["main_process"] in PROCESS_MAPPING:
-            response_parts.append("可选的子工艺类型有：")
-            for sub_type in PROCESS_MAPPING[process_info["main_process"]]:
-                response_parts.append(f"- {sub_type}")
-    
-    return "\n".join(response_parts)
-
 def chat_with_gcode(message, history):
     """
-    与G代码助手进行交互的聊天函数 - 基于统一LLM意图识别
+    与G代码助手进行交互的聊天函数。
     """
     try:
         # 1. 检查是否在参数收集过程中
@@ -182,50 +112,90 @@ def chat_with_gcode(message, history):
                 yield "请输入有效的数值"
                 return
 
-        # 2. 使用统一的LLM意图识别
-        question_type = parse_question(message)
+        # 2. 尝试识别工艺类型和意图
+        process_info = parse_process_type(message)
         
-        # 3. 根据意图类型进行不同处理
-        if question_type == QuestionType.PROCESS_TASK:
-            # 处理工艺执行任务
-            process_info = parse_process_type(message)
-            response = handle_process_task(message, process_info)
+        if process_info["main_process"] != "NO_PROCESS":
+            response_parts = []
+            response_parts.append(f"识别到工艺类型：{process_info['main_process']}")
             
+            if process_info["sub_process"]:
+                sub_process = process_info["sub_process"]
+                response_parts.append(f"具体子工艺：{sub_process}")
+                
+                template = get_process_template(sub_process)
+                if template:
+                    param_list = parse_template_params(template)
+                    
+                    # 尝试从消息中提取参数
+                    params = extract_params_from_message(message, param_list, current_session.param_types)
+                    
+                    # 如果提取到了所有参数
+                    if len(params) == len(param_list):
+                        try:
+                            gcode = generate_gcode(sub_process, params)
+                            response = f"已从您的输入中提取所有参数，生成的G代码：\n{gcode}"
+                            for i in range(len(response)):
+                                time.sleep(0.05)
+                                yield response[:i + 1]
+                            return
+                        except Exception as e:
+                            response_parts.append(f"参数提取成功但生成G代码时出错: {str(e)}")
+                    
+                    # 如果只提取到部分参数，初始化会话并保存已有参数
+                    current_session.init_session(
+                        process_info["main_process"],
+                        sub_process,
+                        param_list
+                    )
+                    
+                    # 保存已提取的参数
+                    for param, value in params.items():
+                        try:
+                            current_session.param_values[param] = value
+                            # 从待收集参数列表中移除已有参数
+                            if param in current_session.param_list:
+                                current_session.param_list.remove(param)
+                        except ValueError as e:
+                            print(f"参数 {param} 设置失败: {e}")
+                    
+                    # 更新当前需要收集的参数
+                    if current_session.param_list:
+                        current_session.current_param = current_session.param_list[0]
+                        response_parts.append("\n需要提供以下参数：")
+                        for param in current_session.param_list:
+                            param_type = current_session.param_types.get(param, float)
+                            response_parts.append(f"- {param} ({param_type.__name__})")
+                        response_parts.append(f"\n请输入参数 {current_session.current_param} ({current_session.param_types[current_session.current_param].__name__}类型)")
+                    else:
+                        # 如果所有参数都已收集
+                        try:
+                            gcode = generate_gcode(sub_process, current_session.param_values)
+                            response = f"已收集所有参数，生成的G代码：\n{gcode}"
+                            current_session.clear()
+                            for i in range(len(response)):
+                                time.sleep(0.05)
+                                yield response[:i + 1]
+                            return
+                        except Exception as e:
+                            response_parts.append(f"生成G代码时出错: {str(e)}")
+                            current_session.clear()
+                else:
+                    response_parts.append("未找到对应的工艺模板")
+            else:
+                response_parts.append("请指定具体的子工艺类型。")
+                if process_info["main_process"] in PROCESS_MAPPING:
+                    response_parts.append("可选的子工艺类型有：")
+                    for sub_type in PROCESS_MAPPING[process_info["main_process"]]:
+                        response_parts.append(f"- {sub_type}")
+            
+            response = "\n".join(response_parts)
             for i in range(len(response)):
                 time.sleep(0.05)
                 yield response[:i + 1]
             return
-            
-        elif question_type == QuestionType.GCODE_KNOWLEDGE_QUERY:
-            # 处理G代码知识咨询 - 走知识问答流程
-            answers = get_answer(message, history)
-            
-            # 如果知识图谱没有答案，调用大模型
-            if not answers[0] or answers[-1] == QuestionType.UNKNOWN:
-                # 走UNKNOWN流程，会调用大模型
-                answers = get_answer(message, history)
-                answers = (answers[0], QuestionType.UNKNOWN)
-            
-            if answers[-1] == QuestionType.UNKNOWN:
-                # 处理未知问题流式输出
-                try:
-                    partial_message = ""
-                    for chunk in answers[0][1]:
-                        if chunk.choices[0].delta.content:
-                            partial_message += chunk.choices[0].delta.content
-                            yield partial_message
-                except Exception as e:
-                    print(f"处理知识问答时出错: {e}")
-                    yield "抱歉，处理您的问题时出现了错误。"
-            else:
-                # 非流式输出
-                response = answers[0]
-                for i in range(len(response)):
-                    time.sleep(0.05)
-                    yield response[:i + 1]
-            return
-        
-        # 4. 其他类型走原有流程
+
+        # 3. 如果不是工艺相关问题,继续原有的处理流程
         answers = get_answer(message, history)
 
         if answers[-1] == QuestionType.GCODE_KNOWLEDGE_GRAPH:
@@ -237,7 +207,7 @@ def chat_with_gcode(message, history):
 
         elif answers[-1] == QuestionType.HELLO:
             # 处理问候语
-            response = answers[0]
+            response = answers[0]  # 直接使用字符串
             for i in range(len(response)):
                 time.sleep(0.05)
                 yield response[:i + 1]
@@ -252,7 +222,7 @@ def chat_with_gcode(message, history):
             yield partial_message
 
         elif answers[-1] == QuestionType.UNKNOWN:
-            # 处理未知问题
+            # 处理未知问题，包括G代码知识问答
             try:
                 partial_message = ""
                 for chunk in answers[0][1]:
@@ -269,3 +239,5 @@ def chat_with_gcode(message, history):
     except Exception as e:
         error_msg = f"处理过程中出现错误: {str(e)}"
         yield error_msg
+
+
