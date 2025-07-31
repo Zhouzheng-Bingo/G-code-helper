@@ -11,6 +11,7 @@ from qa.question_type import QuestionType
 from qa.question_parser import parse_question, parse_process_type
 from qa.function_tool import get_process_template, parse_template_params, generate_gcode
 from qa.session_state import current_session
+from qa.llm_parameter_agent import get_parameter_agent
 
 # 定义为模块级常量
 PROCESS_MAPPING = {
@@ -79,7 +80,7 @@ def extract_params_from_message(message: str, param_list: list, param_types: dic
 
 def handle_process_task(message: str, process_info: dict):
     """
-    处理工艺执行任务
+    处理工艺执行任务 - 增强版，支持LLM智能参数补全
     """
     response_parts = []
     response_parts.append(f"识别到工艺类型：{process_info['main_process']}")
@@ -94,6 +95,24 @@ def handle_process_task(message: str, process_info: dict):
             
             # 尝试从消息中提取参数
             params = extract_params_from_message(message, param_list, current_session.param_types)
+            
+            # 获取LLM参数代理
+            param_agent = get_parameter_agent()
+            
+            # 如果有缺失参数，尝试推理
+            if len(params) < len(param_list):
+                # 使用LLM分析所需参数
+                required_params = param_agent.analyze_required_params(
+                    process_info['main_process'], 
+                    sub_process
+                )
+                
+                # 尝试推理缺失的可选参数
+                inferred = param_agent.infer_related_params(params, required_params)
+                params.update(inferred)
+                
+                if inferred:
+                    response_parts.append(f"已智能推理部分参数：{', '.join([f'{k}={v}' for k, v in inferred.items()])}")
             
             # 如果提取到了所有参数
             if len(params) == len(param_list):

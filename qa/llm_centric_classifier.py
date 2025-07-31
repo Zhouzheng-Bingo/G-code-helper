@@ -276,7 +276,17 @@ class CoreLLMIntentClassifier:
         self.stats = {
             "total_calls": 0,
             "successful_calls": 0,
-            "enhanced_calls": 0
+            "enhanced_calls": 0,
+            "reflection_calls": 0,  # 新增：自反思调用次数
+            "reflection_improvements": 0  # 新增：自反思改进次数
+        }
+        
+        # 详细性能统计
+        self.detailed_stats = {
+            "confidence_distribution": [],  # 置信度分布
+            "bert_contribution": [],        # BERT贡献度
+            "response_times": [],           # 响应时间
+            "reflection_cases": []          # 自反思案例
         }
     
     def classify_intent(self, user_input: str, conversation_history: List[str] = None) -> EnhancedIntentResult:
@@ -324,7 +334,58 @@ class CoreLLMIntentClassifier:
             # 3. 解析LLM响应
             parsed_result = self._parse_llm_response(llm_response, user_input)
             
+            # 3.5 自反思机制（新增）
+            original_confidence = parsed_result.get("confidence", 0.8)
+            if original_confidence < 0.7:
+                print(f"🔄 置信度较低({original_confidence})，启动自反思机制...")
+                self.stats["reflection_calls"] += 1
+                
+                reflection_prompt = f"""你刚才对用户输入的分析置信度较低（{original_confidence}）。
+
+原始输入：{user_input}
+你的分析结果：
+- 主工艺：{parsed_result.get("main_process")}
+- 子工艺：{parsed_result.get("sub_process")}
+- 推理过程：{parsed_result.get("professional_reasoning")}
+
+请重新仔细分析，特别注意：
+1. 用户是否明确提到了某个工艺类型？
+2. 是否有遗漏的关键词或参数？
+3. 你的推理过程是否合理？
+
+请给出更准确的判断，输出格式与之前相同。"""
+
+                reflection_response = self.llm_client.chat_with_ai(reflection_prompt)
+                reflection_result = self._parse_llm_response(reflection_response, user_input)
+                
+                # 比较两次结果
+                new_confidence = reflection_result.get("confidence", 0.8)
+                if new_confidence > original_confidence:
+                    print(f"✅ 自反思提升了置信度：{original_confidence} → {new_confidence}")
+                    self.stats["reflection_improvements"] += 1
+                    parsed_result = reflection_result
+                    
+                    # 记录自反思案例
+                    self.detailed_stats["reflection_cases"].append({
+                        "input": user_input,
+                        "original_confidence": original_confidence,
+                        "new_confidence": new_confidence,
+                        "improved": True
+                    })
+                else:
+                    print(f"ℹ️ 自反思后置信度未提升，保持原结果")
+                    self.detailed_stats["reflection_cases"].append({
+                        "input": user_input,
+                        "original_confidence": original_confidence,
+                        "new_confidence": new_confidence,
+                        "improved": False
+                    })
+            
             self.stats["successful_calls"] += 1
+            
+            # 记录性能数据
+            final_confidence = parsed_result.get("confidence", 0.8)
+            self.detailed_stats["confidence_distribution"].append(final_confidence)
             
             # 4. 构建增强结果
             return EnhancedIntentResult(
@@ -524,11 +585,45 @@ class CoreLLMIntentClassifier:
     
     def get_stats(self) -> Dict:
         """获取分类器使用统计"""
-        return {
+        basic_stats = {
             **self.stats,
             "success_rate": self.stats["successful_calls"] / max(self.stats["total_calls"], 1),
-            "enhancement_rate": self.stats["enhanced_calls"] / max(self.stats["total_calls"], 1)
+            "enhancement_rate": self.stats["enhanced_calls"] / max(self.stats["total_calls"], 1),
+            "reflection_rate": self.stats["reflection_calls"] / max(self.stats["total_calls"], 1),
+            "reflection_success_rate": self.stats["reflection_improvements"] / max(self.stats["reflection_calls"], 1)
         }
+        
+        # 计算置信度统计
+        if self.detailed_stats["confidence_distribution"]:
+            confidences = self.detailed_stats["confidence_distribution"]
+            basic_stats["avg_confidence"] = sum(confidences) / len(confidences)
+            basic_stats["min_confidence"] = min(confidences)
+            basic_stats["max_confidence"] = max(confidences)
+            basic_stats["low_confidence_ratio"] = len([c for c in confidences if c < 0.7]) / len(confidences)
+        
+        return basic_stats
+    
+    def get_detailed_stats(self) -> Dict:
+        """获取详细统计信息"""
+        return {
+            "basic_stats": self.get_stats(),
+            "detailed_metrics": self.detailed_stats,
+            "reflection_summary": {
+                "total_cases": len(self.detailed_stats["reflection_cases"]),
+                "improved_cases": len([c for c in self.detailed_stats["reflection_cases"] if c["improved"]]),
+                "avg_improvement": self._calculate_avg_improvement()
+            }
+        }
+    
+    def _calculate_avg_improvement(self) -> float:
+        """计算自反思的平均改进幅度"""
+        improvements = []
+        for case in self.detailed_stats["reflection_cases"]:
+            if case["improved"]:
+                improvement = case["new_confidence"] - case["original_confidence"]
+                improvements.append(improvement)
+        
+        return sum(improvements) / len(improvements) if improvements else 0.0
 
 
 # 主要对外接口
@@ -565,6 +660,10 @@ class LLMCentricIntentClassifier:
     def get_performance_stats(self) -> Dict:
         """获取性能统计"""
         return self.core_classifier.get_stats()
+    
+    def get_detailed_performance_stats(self) -> Dict:
+        """获取详细性能统计"""
+        return self.core_classifier.get_detailed_stats()
 
 
 # 全局单例

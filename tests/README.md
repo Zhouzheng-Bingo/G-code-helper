@@ -33,6 +33,16 @@
 - `webui_test.py` - Web UI测试
 - `direct_test.py` - 直接测试
 
+## 新增算法测试 (论文相关)
+
+### 四个核心算法的测试文件
+- `test_enhanced_intent.py` - LLM驱动的意图识别算法测试 (4.2节)
+- `test_smart_params.py` - LLM驱动的智能参数补全策略测试 (4.3节)
+- `test_template_matching.py` - 知识图谱辅助的LLM模板匹配测试 (4.4节)
+- `test_gcode_verification.py` - 轻量级G代码验证机制测试 (4.5节)
+- `test_simple_enhanced.py` - 简化的增强功能测试
+- `test_simple_verification.py` - 简化的验证功能测试
+
 ## 使用方法
 
 ```bash
@@ -44,6 +54,12 @@ python tests/test_performance.py
 
 # 快速诊断
 python tests/quick_test.py
+
+# 新增算法测试 (推荐按顺序运行)
+python tests/test_enhanced_intent.py     # 意图识别测试
+python tests/test_smart_params.py        # 参数补全测试  
+python tests/test_template_matching.py   # 模板匹配测试
+python tests/test_simple_verification.py # 验证机制测试 (简化版)
 ```
 
 ## 注意事项
