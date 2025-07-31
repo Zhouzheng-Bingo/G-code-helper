@@ -23,6 +23,26 @@ PROCESS_MAPPING = {
     "倒角工艺": ["外圆角倒角", "外倒角", "内圆角倒角", "内倒角"]
 }
 
+# 参数名称到自然语言的映射
+PARAM_DESCRIPTIONS = {
+    'Cn': '进刀次数/循环次数',
+    'L': '加工长度',
+    'Tr': '每次进刀量', 
+    'Cr': '总进刀量',
+    'F': '加工速度/进给速度',
+    'D': '直径',
+    'S': '主轴转速',
+    'X': 'X坐标',
+    'Y': 'Y坐标', 
+    'Z': 'Z坐标',
+    'R': '半径',
+    'P': '螺距',
+    'T': '刀具号',
+    'A': '角度',
+    'H': '高度',
+    'W': '宽度'
+}
+
 def extract_params_from_message(message: str, param_list: list, param_types: dict) -> dict:
     """
     从用户消息中提取参数值 - 增强版，支持自然语言理解
@@ -38,6 +58,9 @@ def extract_params_from_message(message: str, param_list: list, param_types: dic
             r'进(\d+)刀',
             r'循环([二两三四五六七八九十2３４５６７８９１０２３]\d*)次', 
             r'循环(\d+)次',
+            r'只要进刀([一二三四五六七八九十1１２３４５６７８９１０]\d*)次',
+            r'只要进([一二三四五六七八九十1１２３４５６７８９１０]\d*)刀',
+            r'进刀([一二三四五六七八九十1１２３４５６７８９１０]\d*)次',
             r'Cn[是为=:]?\s*(\d+)',
         ],
         'L': [
@@ -222,12 +245,33 @@ def handle_process_task(message: str, process_info: dict):
             
             # 更新当前需要收集的参数
             if current_session.param_list:
-                current_session.current_param = current_session.param_list[0]
                 response_parts.append("\n需要提供以下参数：")
                 for param in current_session.param_list:
                     param_type = current_session.param_types.get(param, float)
-                    response_parts.append(f"- {param} ({param_type.__name__})")
-                response_parts.append(f"\n请输入参数 {current_session.current_param} ({current_session.param_types[current_session.current_param].__name__}类型)")
+                    param_desc = PARAM_DESCRIPTIONS.get(param, param)
+                    response_parts.append(f"- {param_desc} ({param}): {param_type.__name__}类型")
+                
+                response_parts.append("\n您可以一次性提供多个参数，例如：")
+                example_parts = []
+                for param in current_session.param_list[:3]:  # 只显示前3个作为示例
+                    param_desc = PARAM_DESCRIPTIONS.get(param, param)
+                    if param == 'F':
+                        example_parts.append("加工速度300毫米每分")
+                    elif param == 'Cn':
+                        example_parts.append("总共进2刀")
+                    elif param == 'L':
+                        example_parts.append("加工长度100毫米")
+                    elif param == 'Tr':
+                        example_parts.append("每次进刀量0.5毫米")
+                    elif param == 'Cr':
+                        example_parts.append("总进刀量1毫米")
+                    else:
+                        example_parts.append(f"{param_desc}=数值")
+                
+                if example_parts:
+                    response_parts.append(f"'{', '.join(example_parts)}'")
+                    
+                # 不设置current_param，让系统支持批量输入
             else:
                 # 如果所有参数都已收集
                 try:
@@ -253,32 +297,70 @@ def chat_with_gcode(message, history):
     与G代码助手进行交互的聊天函数 - 基于统一LLM意图识别
     """
     try:
-        # 1. 检查是否在参数收集过程中
-        if current_session.current_param is not None:
-            try:
-                param_value = message.strip()
-                all_collected, next_prompt = current_session.add_param_value(param_value)
+        # 1. 检查是否在参数收集过程中  
+        if current_session.main_process is not None and current_session.param_list:
+            # 尝试从消息中批量提取参数
+            newly_extracted = extract_params_from_message(
+                message, 
+                current_session.param_list, 
+                current_session.param_types
+            )
+            
+            # 保存新提取的参数
+            for param, value in newly_extracted.items():
+                current_session.param_values[param] = value
+                if param in current_session.param_list:
+                    current_session.param_list.remove(param)
+            
+            # 检查是否还有缺失参数
+            if not current_session.param_list:
+                # 所有参数已收集完毕
+                try:
+                    gcode = generate_gcode(
+                        current_session.sub_process, 
+                        current_session.param_values
+                    )
+                    response = f"已收集所有参数，生成的G代码：\n{gcode}"
+                    current_session.clear()
+                except Exception as e:
+                    response = f"生成G代码时出错: {str(e)}"
+                    current_session.clear()
+            else:
+                # 还有缺失参数，继续提示
+                response_parts = []
+                if newly_extracted:
+                    response_parts.append(f"已收集参数：{', '.join([f'{PARAM_DESCRIPTIONS.get(k, k)}({k})={v}' for k, v in newly_extracted.items()])}")
                 
-                if all_collected:
-                    try:
-                        gcode = generate_gcode(
-                            current_session.sub_process, 
-                            current_session.param_values
-                        )
-                        response = f"已收集所有参数，生成的G代码：\n{gcode}"
-                        current_session.clear()
-                    except Exception as e:
-                        response = f"生成G代码时出错: {str(e)}"
-                        current_session.clear()
-                else:
-                    response = next_prompt
+                response_parts.append("仍需提供以下参数：")
+                for param in current_session.param_list:
+                    param_type = current_session.param_types.get(param, float)
+                    param_desc = PARAM_DESCRIPTIONS.get(param, param)
+                    response_parts.append(f"- {param_desc} ({param}): {param_type.__name__}类型")
                 
-                yield response
-                return
-
-            except ValueError:
-                yield "请输入有效的数值"
-                return
+                response_parts.append("\n您可以一次性提供多个参数，例如：")
+                example_parts = []
+                for param in current_session.param_list[:3]:
+                    if param == 'F':
+                        example_parts.append("加工速度300毫米每分")
+                    elif param == 'Cn':
+                        example_parts.append("总共进2刀")
+                    elif param == 'L':
+                        example_parts.append("加工长度100毫米")
+                    elif param == 'Tr':
+                        example_parts.append("每次进刀量0.5毫米")
+                    elif param == 'Cr':
+                        example_parts.append("总进刀量1毫米")
+                    else:
+                        param_desc = PARAM_DESCRIPTIONS.get(param, param)
+                        example_parts.append(f"{param_desc}=数值")
+                
+                if example_parts:
+                    response_parts.append(f"'{', '.join(example_parts)}'")
+                
+                response = "\n".join(response_parts)
+            
+            yield response
+            return
 
         # 2. 使用统一的LLM意图识别
         question_type = parse_question(message)
