@@ -35,6 +35,8 @@ def create_app():
 
     get_scheduler().start()
 
+    # 启动WebUI（已增强支持文本复制功能）
+    logger.info("🎨 启动WebUI（支持文本复制功能）...")
     run_webui()
 
 

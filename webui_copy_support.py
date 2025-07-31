@@ -15,89 +15,37 @@ __AVATAR = (
     os.path.join(get_app_root(), "resource/avatar/gcode_assistant.png")
 )
 
-# 1.不准确 Pocketsphinx
-# def audio_to_text(audio_path):
-#     model_path = "D:/Anaconda/download/envs/gcode/Lib/site-packages/speech_recognition/pocketsphinx-data/zh-CN/zh_cn.cd_cont_5000"
-#
-#     ps = Pocketsphinx(
-#         hmm=model_path,
-#         lm="D:/Anaconda/download/envs/gcode/Lib/site-packages/speech_recognition/pocketsphinx-data/zh-CN/zh_cn.lm.bin",
-#         dic="D:/Anaconda/download/envs/gcode/Lib/site-packages/speech_recognition/pocketsphinx-data/zh-CN/zh_cn.dic"
-#     )
-#
-#     ps.decode(audio_file=audio_path)
-#     return ps.hypothesis()
-# 2.很慢
-# def audio_to_text(audio_path):
-#     model = whisper.load_model("large")  # 可选：tiny, base, small, medium, large，越来越慢
-#     result = model.transcribe(audio_path)
-#     return result["text"]
 def audio_to_text(audio_path):
     # 可选：tiny, base, small, medium, large
     model = whisper.load_model("tiny")
     result = model.transcribe(audio_path)
     return result["text"]
-    
-    # 始终返回固定文本
-    # 这里演示用的，做硬编码的
-    # return "我要使用外圆工艺加工一个外圆，Cn是2，L是100，Tr是0.5，Cr是1，F是300"
-
 
 # 清空音频输入
 def reset_audio_input():
     return None
 
-
 def run_webui():
     # 自定义CSS来支持文本选择和复制
     custom_css = """
-    /* 确保所有文本都可以选择 - 使用更广泛的选择器 */
-    * {
+    /* 确保所有文本都可以选择 */
+    .message, .message * {
         user-select: text !important;
         -webkit-user-select: text !important;
         -moz-user-select: text !important;
         -ms-user-select: text !important;
     }
     
-    /* 特定于聊天界面的选择器 */
-    .message, .message *, 
-    .chatbot, .chatbot *,
-    .gr-chatbot, .gr-chatbot *,
-    .chat-message, .chat-message *,
-    .message-wrap, .message-wrap *,
-    .bubble-wrap, .bubble-wrap *,
-    .prose, .prose *,
-    .markdown, .markdown * {
-        user-select: text !important;
-        -webkit-user-select: text !important;
-        -moz-user-select: text !important;
-        -ms-user-select: text !important;
-        pointer-events: auto !important;
-    }
-    
-    /* 代码块样式优化 - 支持多种代码块类型 */
-    pre, code, .code, .highlight,
-    .language-gcode, .language-python, .language-javascript,
-    code[class*="language-"], pre[class*="language-"] {
+    /* 代码块样式优化 */
+    pre, code {
         user-select: text !important;
         -webkit-user-select: text !important;
         background-color: #f8f9fa !important;
         border: 1px solid #e9ecef !important;
         border-radius: 4px !important;
         padding: 8px !important;
-        font-family: 'Courier New', 'Monaco', 'Menlo', monospace !important;
-        font-size: 14px !important;
-        line-height: 1.4 !important;
+        font-family: 'Courier New', monospace !important;
         position: relative;
-        white-space: pre-wrap !important;
-        word-wrap: break-word !important;
-    }
-    
-    /* G代码特殊样式 */
-    .gcode, [class*="gcode"] {
-        background-color: #fff3cd !important;
-        border-color: #ffeaa7 !important;
-        color: #856404 !important;
     }
     
     /* 选中文本高亮 */
@@ -111,19 +59,23 @@ def run_webui():
         color: white !important;
     }
     
-    /* 禁用可能阻止文本选择的样式 */
-    .no-select, .unselectable {
+    /* 聊天气泡样式 */
+    .message-wrap {
         user-select: text !important;
         -webkit-user-select: text !important;
     }
     
-    /* 确保按钮等交互元素仍然可点击但文本可选 */
-    button, input, textarea, select {
+    /* 确保整个聊天区域可选择 */
+    .chatbot {
         user-select: text !important;
         -webkit-user-select: text !important;
+    }
+    
+    /* 禁用某些不必要的样式覆盖 */
+    .chatbot .message {
         pointer-events: auto !important;
+        user-select: text !important;
     }
-    
     """
     
     with gr.Blocks(css=custom_css, title="G代码编程助手") as demo:
@@ -134,8 +86,9 @@ def run_webui():
         chat_app = gr.ChatInterface(
             chat_with_gcode,
             title="G代码编程助手📒",
-            description="您可以咨询关于GJ306数控系统和G代码编程的问题",
+            description="您可以咨询关于GJ306数控系统和G代码编程的问题。**提示：所有文本内容都支持选择和复制**",
             theme="default",
+            show_copy_button=True,  # 启用内置复制按钮
             examples=[
                 "您好",
                 "G00指令的作用是什么？",
