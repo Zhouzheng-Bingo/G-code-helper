@@ -84,8 +84,20 @@ class LLMParameterAgent:
                 end = response.find('```', start)
                 json_str = response[start:end].strip()
             else:
-                json_str = response
+                json_str = response.strip()
             
+            # 清理JSON字符串
+            json_str = json_str.replace('\n', '').replace('\r', '')
+            if not json_str.startswith('{'):
+                start_idx = json_str.find('{')
+                if start_idx != -1:
+                    json_str = json_str[start_idx:]
+            if not json_str.endswith('}'):
+                end_idx = json_str.rfind('}')
+                if end_idx != -1:
+                    json_str = json_str[:end_idx+1]
+            
+            print(f"解析参数分析JSON: {json_str}")  # 调试信息
             result = json.loads(json_str)
             
             # 构建参数信息
@@ -258,8 +270,25 @@ class LLMParameterAgent:
                 end = response.find('```', start)
                 json_str = response[start:end].strip()
             else:
-                json_str = response
-                
+                json_str = response.strip()
+            
+            # 清理可能的问题字符
+            json_str = json_str.replace('\n', '').replace('\r', '')
+            
+            # 尝试修复常见的JSON格式问题
+            if not json_str.startswith('{'):
+                # 寻找第一个{
+                start_idx = json_str.find('{')
+                if start_idx != -1:
+                    json_str = json_str[start_idx:]
+            
+            if not json_str.endswith('}'):
+                # 寻找最后一个}
+                end_idx = json_str.rfind('}')
+                if end_idx != -1:
+                    json_str = json_str[:end_idx+1]
+            
+            print(f"尝试解析JSON: {json_str}")  # 调试信息
             result = json.loads(json_str)
             
             # 提取推理的参数值
@@ -314,8 +343,20 @@ class LLMParameterAgent:
                 end = response.find('```', start)
                 json_str = response[start:end].strip()
             else:
-                json_str = response
+                json_str = response.strip()
                 
+            # 清理JSON字符串
+            json_str = json_str.replace('\n', '').replace('\r', '')
+            if not json_str.startswith('{'):
+                start_idx = json_str.find('{')
+                if start_idx != -1:
+                    json_str = json_str[start_idx:]
+            if not json_str.endswith('}'):
+                end_idx = json_str.rfind('}')
+                if end_idx != -1:
+                    json_str = json_str[:end_idx+1]
+            
+            print(f"解析参数验证JSON: {json_str}")  # 调试信息
             result = json.loads(json_str)
             
             is_valid = result.get('is_valid', True)

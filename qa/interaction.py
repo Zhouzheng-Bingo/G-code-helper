@@ -25,56 +25,137 @@ PROCESS_MAPPING = {
 
 def extract_params_from_message(message: str, param_list: list, param_types: dict) -> dict:
     """
-    从用户消息中提取参数值
+    从用户消息中提取参数值 - 增强版，支持自然语言理解
     """
     params = {}
-    # 创建参数名的小写映射
-    param_lower_map = {param.lower(): param for param in param_list}
     
+    # 智能参数提取规则 - 支持中文数字
+    param_patterns = {
+        'Cn': [
+            r'总共进([二两三四五六七八九十2３４５６７８９１０２３]\d*)刀',
+            r'总共进(\d+)刀',
+            r'进([二两三四五六七八九十2３４５６７８９１０２３]\d*)刀',
+            r'进(\d+)刀',
+            r'循环([二两三四五六七八九十2３４５６７８９１０２３]\d*)次', 
+            r'循环(\d+)次',
+            r'Cn[是为=:]?\s*(\d+)',
+        ],
+        'L': [
+            r'加工长度[是为:]?\s*(\d+(?:\.\d+)?)毫米',
+            r'长度[是为:]?\s*(\d+(?:\.\d+)?)(?:毫米|mm)?',
+            r'L[是为=:]?\s*(\d+(?:\.\d+)?)',
+        ],
+        'Tr': [
+            r'每次进刀量[是为:]?\s*(\d+(?:\.\d+)?)毫米',
+            r'进刀量[是为:]?\s*(\d+(?:\.\d+)?)毫米',
+            r'Tr[是为=:]?\s*(\d+(?:\.\d+)?)',
+        ],
+        'Cr': [
+            r'进刀量总共[是为:]?\s*([一二三四五六七八九十1１２３４５６７８９１０]\d*(?:\.\d+)?)毫米',
+            r'总共[是为:]?\s*([一二三四五六七八九十1１２３４５６７８９１０]\d*(?:\.\d+)?)毫米',
+            r'总进刀量[是为:]?\s*(\d+(?:\.\d+)?)毫米',
+            r'Cr[是为=:]?\s*(\d+(?:\.\d+)?)',
+        ],
+        'F': [
+            r'加工速度[是为:]?\s*(\d+(?:\.\d+)?)毫米每分',
+            r'进给速度[是为:]?\s*(\d+(?:\.\d+)?)(?:毫米每分|mm/min)?',
+            r'速度[是为:]?\s*(\d+(?:\.\d+)?)(?:毫米每分|mm/min)?',
+            r'F[是为=:]?\s*(\d+(?:\.\d+)?)',
+        ],
+        'D': [
+            r'直径[是为:]?\s*(\d+(?:\.\d+)?)(?:毫米|mm)?',
+            r'D[是为=:]?\s*(\d+(?:\.\d+)?)',
+        ],
+        'S': [
+            r'转速[是为:]?\s*(\d+)(?:转每分|rpm)?',
+            r'主轴转速[是为:]?\s*(\d+)(?:转每分|rpm)?',
+            r'S[是为=:]?\s*(\d+)',
+        ]
+    }
+    
+    # 中文数字转换映射
+    chinese_numbers = {
+        '一': '1', '二': '2', '三': '3', '四': '4', '五': '5',
+        '六': '6', '七': '7', '八': '8', '九': '9', '十': '10',
+        '两': '2', '１': '1', '２': '2', '３': '3', '４': '4', 
+        '５': '5', '６': '6', '７': '7', '８': '8', '９': '9', '１０': '10'
+    }
+    
+    import re
+    
+    # 对每个需要的参数进行智能提取
     for param in param_list:
-        # 构建可能的参数标识符（包含大小写变体）
-        identifiers = []
-        for base in [param, param.lower(), param.upper()]:
-            identifiers.extend([
-                f"{base}是", f"{base}=", f"{base}:", 
-                f"{base}为", f"{base}：", f"{base} "
-            ])
-        
-        for identifier in identifiers:
-            if identifier in message:
-                # 找到参数标识符后的值
-                start_idx = message.find(identifier) + len(identifier)
-                # 找下一个标识符或者引号或者逗号
-                end_idx = len(message)
-                
-                # 检查所有参数的所有可能形式
-                for next_param in param_list:
-                    for next_base in [next_param, next_param.lower(), next_param.upper()]:
-                        for next_id in [f"{next_base}是", f"{next_base}=", f"{next_base}:", 
-                                      f"{next_base}为", f"{next_base}：", f"{next_base} "]:
-                            next_pos = message.find(next_id, start_idx)
-                            if next_pos != -1:
-                                end_idx = min(end_idx, next_pos)
-                
-                # 也考虑逗号、空格等分隔符
-                for separator in [",", "，", " ", ";", "；", '"', "'"]:
-                    sep_pos = message.find(separator, start_idx)
-                    if sep_pos != -1:
-                        end_idx = min(end_idx, sep_pos)
-                
-                value = message[start_idx:end_idx].strip()
-                if value:
+        if param in param_patterns:
+            for pattern in param_patterns[param]:
+                match = re.search(pattern, message, re.IGNORECASE)
+                if match:
                     try:
+                        value = match.group(1)
+                        
+                        # 转换中文数字
+                        if value in chinese_numbers:
+                            value = chinese_numbers[value]
+                        
                         param_type = param_types.get(param, float)
+                        
                         if param_type == int:
                             params[param] = int(float(value))
                         elif param_type == float:
                             params[param] = float(value)
                         else:
                             params[param] = param_type(value)
-                    except ValueError:
+                        
+                        print(f"✅ 智能提取参数: {param} = {params[param]} (通过模式: {pattern})")
+                        break
+                    except (ValueError, IndexError):
                         continue
-                break
+        
+        # 如果智能提取失败，回退到原有方法
+        if param not in params:
+            # 构建可能的参数标识符（包含大小写变体）
+            identifiers = []
+            for base in [param, param.lower(), param.upper()]:
+                identifiers.extend([
+                    f"{base}是", f"{base}=", f"{base}:", 
+                    f"{base}为", f"{base}：", f"{base} "
+                ])
+            
+            for identifier in identifiers:
+                if identifier in message:
+                    # 找到参数标识符后的值
+                    start_idx = message.find(identifier) + len(identifier)
+                    # 找下一个标识符或者引号或者逗号
+                    end_idx = len(message)
+                    
+                    # 检查所有参数的所有可能形式
+                    for next_param in param_list:
+                        for next_base in [next_param, next_param.lower(), next_param.upper()]:
+                            for next_id in [f"{next_base}是", f"{next_base}=", f"{next_base}:", 
+                                          f"{next_base}为", f"{next_base}：", f"{next_base} "]:
+                                next_pos = message.find(next_id, start_idx)
+                                if next_pos != -1:
+                                    end_idx = min(end_idx, next_pos)
+                    
+                    # 也考虑逗号、空格等分隔符
+                    for separator in [",", "，", " ", ";", "；", '"', "'"]:
+                        sep_pos = message.find(separator, start_idx)
+                        if sep_pos != -1:
+                            end_idx = min(end_idx, sep_pos)
+                    
+                    value = message[start_idx:end_idx].strip()
+                    if value:
+                        try:
+                            param_type = param_types.get(param, float)
+                            if param_type == int:
+                                params[param] = int(float(value))
+                            elif param_type == float:
+                                params[param] = float(value)
+                            else:
+                                params[param] = param_type(value)
+                            print(f"📝 回退提取参数: {param} = {params[param]}")
+                        except ValueError:
+                            continue
+                    break
     
     return params
 

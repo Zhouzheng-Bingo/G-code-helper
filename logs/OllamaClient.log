@@ -683,3 +683,33 @@ If the error persists, please using management api.
 2025-07-31 17:04:21.760 | INFO     | model.preload_manager:_print_load_summary:142 -   ✅ llm_client: 0.04秒
 2025-07-31 17:04:21.760 | INFO     | model.preload_manager:_print_load_summary:142 -   ❌ intent_classifiers: 0.00秒
 2025-07-31 17:04:21.760 | INFO     | __main__:create_app:30 - ✅ 模型预加载完成，启动应用服务...
+2025-07-31 17:56:47.756 | INFO     | __main__:create_app:27 - 🚀 正在预加载模型，请稍候...
+2025-07-31 17:56:47.757 | INFO     | model.preload_manager:preload_all_models:23 - 🚀 开始预加载所有模型...
+2025-07-31 17:56:47.758 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-07-31 17:56:47.760 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-07-31 17:56:47.760 | INFO     | model.preload_manager:_preload_entity_searcher:59 - ✅ 实体搜索模型加载成功，耗时: 0.00秒
+2025-07-31 17:56:47.761 | ERROR    | model.preload_manager:_preload_rag_retriever:91 - ❌ RAG检索模型加载失败: Model not built
+2025-07-31 17:56:47.805 | INFO     | model.preload_manager:_preload_llm_client:110 - ✅ LLM客户端加载成功，耗时: 0.04秒
+2025-07-31 17:56:47.807 | INFO     | model.preload_manager:_preload_intent_classifiers:131 - ✅ 意图分类器加载成功，耗时: 0.00秒
+2025-07-31 17:56:47.808 | INFO     | model.preload_manager:preload_all_models:39 - ✅ 所有模型预加载完成，总耗时: 0.05秒
+2025-07-31 17:56:47.808 | INFO     | model.preload_manager:_print_load_summary:139 - 📊 模型加载时间统计:
+2025-07-31 17:56:47.808 | INFO     | model.preload_manager:_print_load_summary:142 -   ✅ entity_searcher: 0.00秒
+2025-07-31 17:56:47.808 | INFO     | model.preload_manager:_print_load_summary:142 -   ❌ rag_retriever: 0.00秒
+2025-07-31 17:56:47.809 | INFO     | model.preload_manager:_print_load_summary:142 -   ✅ llm_client: 0.04秒
+2025-07-31 17:56:47.809 | INFO     | model.preload_manager:_print_load_summary:142 -   ❌ intent_classifiers: 0.00秒
+2025-07-31 17:56:47.809 | INFO     | __main__:create_app:30 - ✅ 模型预加载完成，启动应用服务...
+2025-07-31 19:10:35.787 | INFO     | __main__:create_app:27 - 🚀 正在预加载模型，请稍候...
+2025-07-31 19:10:35.788 | INFO     | model.preload_manager:preload_all_models:23 - 🚀 开始预加载所有模型...
+2025-07-31 19:10:35.789 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-07-31 19:10:35.790 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-07-31 19:10:35.790 | INFO     | model.preload_manager:_preload_entity_searcher:59 - ✅ 实体搜索模型加载成功，耗时: 0.00秒
+2025-07-31 19:10:35.790 | ERROR    | model.preload_manager:_preload_rag_retriever:91 - ❌ RAG检索模型加载失败: Model not built
+2025-07-31 19:10:35.830 | INFO     | model.preload_manager:_preload_llm_client:110 - ✅ LLM客户端加载成功，耗时: 0.04秒
+2025-07-31 19:10:35.832 | INFO     | model.preload_manager:_preload_intent_classifiers:131 - ✅ 意图分类器加载成功，耗时: 0.00秒
+2025-07-31 19:10:35.833 | INFO     | model.preload_manager:preload_all_models:39 - ✅ 所有模型预加载完成，总耗时: 0.04秒
+2025-07-31 19:10:35.833 | INFO     | model.preload_manager:_print_load_summary:139 - 📊 模型加载时间统计:
+2025-07-31 19:10:35.833 | INFO     | model.preload_manager:_print_load_summary:142 -   ✅ entity_searcher: 0.00秒
+2025-07-31 19:10:35.833 | INFO     | model.preload_manager:_print_load_summary:142 -   ❌ rag_retriever: 0.00秒
+2025-07-31 19:10:35.833 | INFO     | model.preload_manager:_print_load_summary:142 -   ✅ llm_client: 0.04秒
+2025-07-31 19:10:35.833 | INFO     | model.preload_manager:_print_load_summary:142 -   ❌ intent_classifiers: 0.00秒
+2025-07-31 19:10:35.834 | INFO     | __main__:create_app:30 - ✅ 模型预加载完成，启动应用服务...
