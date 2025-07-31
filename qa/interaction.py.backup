@@ -173,7 +173,9 @@ def chat_with_gcode(message, history):
                 else:
                     response = next_prompt
                 
-                yield response
+                for i in range(len(response)):
+                    time.sleep(0.05)
+                    yield response[:i + 1]
                 return
 
             except ValueError:
@@ -189,7 +191,9 @@ def chat_with_gcode(message, history):
             process_info = parse_process_type(message)
             response = handle_process_task(message, process_info)
             
-            yield response
+            for i in range(len(response)):
+                time.sleep(0.05)
+                yield response[:i + 1]
             return
             
         elif question_type == QuestionType.GCODE_KNOWLEDGE_QUERY:
@@ -216,7 +220,9 @@ def chat_with_gcode(message, history):
             else:
                 # 非流式输出
                 response = answers[0]
-                yield response
+                for i in range(len(response)):
+                    time.sleep(0.05)
+                    yield response[:i + 1]
             return
         
         # 4. 其他类型走原有流程
@@ -225,12 +231,16 @@ def chat_with_gcode(message, history):
         if answers[-1] == QuestionType.GCODE_KNOWLEDGE_GRAPH:
             # 处理G代码知识图谱查询
             response = answers[0]
-            yield response
+            for i in range(len(response)):
+                time.sleep(0.05)
+                yield response[:i + 1]
 
         elif answers[-1] == QuestionType.HELLO:
             # 处理问候语
             response = answers[0]
-            yield response
+            for i in range(len(response)):
+                time.sleep(0.05)
+                yield response[:i + 1]
 
         elif answers[-1] == QuestionType.PDF_DOCUMENT:
             # 处理PDF文档查询

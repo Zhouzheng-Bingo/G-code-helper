@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*-
 """
-改进的交互模块 - 基于统一LLM意图识别
+优化的交互模块 - 减少LLM调用次数
 """
 
 import time
 from typing import List, Optional, Iterator
+import json
 
 from qa.answer import get_answer
 from qa.question_type import QuestionType
 from qa.question_parser import parse_question, parse_process_type
 from qa.function_tool import get_process_template, parse_template_params, generate_gcode
 from qa.session_state import current_session
+from lang_chain.client.client_factory import ClientFactory
 
 # 定义为模块级常量
 PROCESS_MAPPING = {
@@ -22,16 +24,24 @@ PROCESS_MAPPING = {
     "倒角工艺": ["外圆角倒角", "外倒角", "内圆角倒角", "内倒角"]
 }
 
+# 缓存简单问题的答案
+SIMPLE_ANSWERS_CACHE = {
+    "你好": "你好！我是G代码编程助手，可以帮助你解答G代码相关问题和生成加工程序。",
+    "谢谢": "不客气！有其他问题随时问我。",
+    "再见": "再见！祝你编程顺利！",
+}
+
+def is_simple_greeting(message: str) -> bool:
+    """检查是否是简单问候语"""
+    greetings = ["你好", "您好", "hi", "hello", "嗨", "早上好", "下午好", "晚上好"]
+    return any(g in message.lower() for g in greetings)
+
 def extract_params_from_message(message: str, param_list: list, param_types: dict) -> dict:
-    """
-    从用户消息中提取参数值
-    """
+    """从用户消息中提取参数值（保持原有实现）"""
     params = {}
-    # 创建参数名的小写映射
     param_lower_map = {param.lower(): param for param in param_list}
     
     for param in param_list:
-        # 构建可能的参数标识符（包含大小写变体）
         identifiers = []
         for base in [param, param.lower(), param.upper()]:
             identifiers.extend([
@@ -41,12 +51,9 @@ def extract_params_from_message(message: str, param_list: list, param_types: dic
         
         for identifier in identifiers:
             if identifier in message:
-                # 找到参数标识符后的值
                 start_idx = message.find(identifier) + len(identifier)
-                # 找下一个标识符或者引号或者逗号
                 end_idx = len(message)
                 
-                # 检查所有参数的所有可能形式
                 for next_param in param_list:
                     for next_base in [next_param, next_param.lower(), next_param.upper()]:
                         for next_id in [f"{next_base}是", f"{next_base}=", f"{next_base}:", 
@@ -55,7 +62,6 @@ def extract_params_from_message(message: str, param_list: list, param_types: dic
                             if next_pos != -1:
                                 end_idx = min(end_idx, next_pos)
                 
-                # 也考虑逗号、空格等分隔符
                 for separator in [",", "，", " ", ";", "；", '"', "'"]:
                     sep_pos = message.find(separator, start_idx)
                     if sep_pos != -1:
@@ -77,10 +83,46 @@ def extract_params_from_message(message: str, param_list: list, param_types: dic
     
     return params
 
+def combined_llm_analysis(message: str) -> dict:
+    """
+    使用单次LLM调用完成意图识别和工艺分析
+    """
+    prompt = f"""请分析以下用户输入，返回JSON格式的分析结果：
+
+用户输入：{message}
+
+返回格式：
+{{
+    "intent": "greeting/gcode_knowledge/process_task/unknown",
+    "process_type": "主工艺类型（如果是工艺任务）",
+    "sub_process": "子工艺类型（如果是工艺任务）",
+    "parameters": {{参数名: 参数值}}
+}}
+
+注意：
+1. intent必须是四个选项之一
+2. 如果不是process_task，process_type和sub_process为null
+3. 只返回JSON，不要有其他内容
+"""
+    
+    try:
+        client = ClientFactory().get_client()
+        response = client.chat_with_ai(prompt)
+        
+        # 提取JSON
+        import re
+        json_match = re.search(r'\{.*\}', response, re.DOTALL)
+        if json_match:
+            result = json.loads(json_match.group())
+            return result
+        else:
+            return {"intent": "unknown"}
+    except Exception as e:
+        print(f"LLM分析失败: {e}")
+        return {"intent": "unknown"}
+
 def handle_process_task(message: str, process_info: dict):
-    """
-    处理工艺执行任务
-    """
+    """处理工艺执行任务（保持原有实现）"""
     response_parts = []
     response_parts.append(f"识别到工艺类型：{process_info['main_process']}")
     
@@ -92,51 +134,42 @@ def handle_process_task(message: str, process_info: dict):
         if template:
             param_list = parse_template_params(template)
             
-            # 尝试从消息中提取参数
             params = extract_params_from_message(message, param_list, current_session.param_types)
             
-            # 如果提取到了所有参数
             if len(params) == len(param_list):
                 try:
                     gcode = generate_gcode(sub_process, params)
-                    return f"已从您的输入中提取所有参数，生成的G代码：\n{gcode}"
-                except Exception as e:
-                    response_parts.append(f"参数提取成功但生成G代码时出错: {str(e)}")
-            
-            # 如果只提取到部分参数，初始化会话并保存已有参数
-            current_session.init_session(
-                process_info["main_process"],
-                sub_process,
-                param_list
-            )
-            
-            # 保存已提取的参数
-            for param, value in params.items():
-                try:
-                    current_session.param_values[param] = value
-                    # 从待收集参数列表中移除已有参数
-                    if param in current_session.param_list:
-                        current_session.param_list.remove(param)
-                except ValueError as e:
-                    print(f"参数 {param} 设置失败: {e}")
-            
-            # 更新当前需要收集的参数
-            if current_session.param_list:
-                current_session.current_param = current_session.param_list[0]
-                response_parts.append("\n需要提供以下参数：")
-                for param in current_session.param_list:
-                    param_type = current_session.param_types.get(param, float)
-                    response_parts.append(f"- {param} ({param_type.__name__})")
-                response_parts.append(f"\n请输入参数 {current_session.current_param} ({current_session.param_types[current_session.current_param].__name__}类型)")
-            else:
-                # 如果所有参数都已收集
-                try:
-                    gcode = generate_gcode(sub_process, current_session.param_values)
-                    current_session.clear()
-                    return f"已收集所有参数，生成的G代码：\n{gcode}"
+                    response_parts.append(f"生成的G代码：\n{gcode}")
+                    return "\n".join(response_parts)
                 except Exception as e:
                     response_parts.append(f"生成G代码时出错: {str(e)}")
-                    current_session.clear()
+            else:
+                current_session.sub_process = sub_process
+                current_session.template = template
+                current_session.param_list = param_list
+                
+                for param in param_list:
+                    if param in params:
+                        try:
+                            current_session.set_param_value(param, params[param])
+                        except ValueError as e:
+                            print(f"参数 {param} 设置失败: {e}")
+                
+                if current_session.param_list:
+                    current_session.current_param = current_session.param_list[0]
+                    response_parts.append("\n需要提供以下参数：")
+                    for param in current_session.param_list:
+                        param_type = current_session.param_types.get(param, float)
+                        response_parts.append(f"- {param} ({param_type.__name__})")
+                    response_parts.append(f"\n请输入参数 {current_session.current_param} ({current_session.param_types[current_session.current_param].__name__}类型)")
+                else:
+                    try:
+                        gcode = generate_gcode(sub_process, current_session.param_values)
+                        current_session.clear()
+                        return f"已收集所有参数，生成的G代码：\n{gcode}"
+                    except Exception as e:
+                        response_parts.append(f"生成G代码时出错: {str(e)}")
+                        current_session.clear()
         else:
             response_parts.append("未找到对应的工艺模板")
     else:
@@ -148,9 +181,9 @@ def handle_process_task(message: str, process_info: dict):
     
     return "\n".join(response_parts)
 
-def chat_with_gcode(message, history):
+def chat_with_gcode_optimized(message, history):
     """
-    与G代码助手进行交互的聊天函数 - 基于统一LLM意图识别
+    优化后的聊天函数 - 减少LLM调用
     """
     try:
         # 1. 检查是否在参数收集过程中
@@ -173,6 +206,7 @@ def chat_with_gcode(message, history):
                 else:
                     response = next_prompt
                 
+                # 移除sleep延迟，直接返回
                 yield response
                 return
 
@@ -180,30 +214,46 @@ def chat_with_gcode(message, history):
                 yield "请输入有效的数值"
                 return
 
-        # 2. 使用统一的LLM意图识别
-        question_type = parse_question(message)
+        # 2. 检查简单问候语缓存
+        for key, cached_response in SIMPLE_ANSWERS_CACHE.items():
+            if key in message:
+                yield cached_response
+                return
         
-        # 3. 根据意图类型进行不同处理
-        if question_type == QuestionType.PROCESS_TASK:
-            # 处理工艺执行任务
-            process_info = parse_process_type(message)
-            response = handle_process_task(message, process_info)
+        # 3. 对于简单问候，快速处理
+        if is_simple_greeting(message):
+            yield "你好！我是G代码编程助手，可以帮助你解答G代码相关问题和生成加工程序。"
+            return
+
+        # 4. 使用组合LLM分析（单次调用）
+        analysis = combined_llm_analysis(message)
+        
+        intent = analysis.get("intent", "unknown")
+        
+        if intent == "greeting":
+            yield "你好！有什么G代码编程问题可以问我。"
+            return
             
+        elif intent == "process_task":
+            # 处理工艺任务
+            process_info = {
+                "main_process": analysis.get("process_type"),
+                "sub_process": analysis.get("sub_process"),
+                "parameters": analysis.get("parameters", {})
+            }
+            response = handle_process_task(message, process_info)
             yield response
             return
             
-        elif question_type == QuestionType.GCODE_KNOWLEDGE_QUERY:
-            # 处理G代码知识咨询 - 走知识问答流程
+        elif intent == "gcode_knowledge":
+            # G代码知识查询
             answers = get_answer(message, history)
             
-            # 如果知识图谱没有答案，调用大模型
             if not answers[0] or answers[-1] == QuestionType.UNKNOWN:
-                # 走UNKNOWN流程，会调用大模型
                 answers = get_answer(message, history)
                 answers = (answers[0], QuestionType.UNKNOWN)
             
             if answers[-1] == QuestionType.UNKNOWN:
-                # 处理未知问题流式输出
                 try:
                     partial_message = ""
                     for chunk in answers[0][1]:
@@ -214,48 +264,33 @@ def chat_with_gcode(message, history):
                     print(f"处理知识问答时出错: {e}")
                     yield "抱歉，处理您的问题时出现了错误。"
             else:
-                # 非流式输出
                 response = answers[0]
-                yield response
+                if isinstance(response, tuple):
+                    response = response[0]
+                if isinstance(response, str):
+                    yield response
+                else:
+                    yield str(response)
             return
-        
-        # 4. 其他类型走原有流程
-        answers = get_answer(message, history)
-
-        if answers[-1] == QuestionType.GCODE_KNOWLEDGE_GRAPH:
-            # 处理G代码知识图谱查询
-            response = answers[0]
-            yield response
-
-        elif answers[-1] == QuestionType.HELLO:
-            # 处理问候语
-            response = answers[0]
-            yield response
-
-        elif answers[-1] == QuestionType.PDF_DOCUMENT:
-            # 处理PDF文档查询
-            partial_message = ""
-            for chunk in answers[0][1]:
-                partial_message += chunk.choices[0].delta.content
-                yield partial_message
-            partial_message += answers[0][0]
-            yield partial_message
-
-        elif answers[-1] == QuestionType.UNKNOWN:
-            # 处理未知问题
+            
+        else:
+            # 未知类型，使用通用LLM回答
             try:
+                client = ClientFactory().get_client()
+                response = client.chat_completion_stream(
+                    [{"role": "user", "content": message}]
+                )
+                
                 partial_message = ""
-                for chunk in answers[0][1]:
+                for chunk in response:
                     if chunk.choices[0].delta.content:
                         partial_message += chunk.choices[0].delta.content
                         yield partial_message
             except Exception as e:
-                print(f"处理未知问题时出错: {e}")
-                yield "抱歉，处理您的问题时出现了错误。"
-
-        else:
-            raise Exception("Unknown question type")
-
+                yield f"抱歉，我无法理解您的问题。错误：{str(e)}"
+                
     except Exception as e:
-        error_msg = f"处理过程中出现错误: {str(e)}"
-        yield error_msg
+        print(f"聊天处理出错: {e}")
+        import traceback
+        traceback.print_exc()
+        yield "抱歉，处理您的消息时出现了错误。"

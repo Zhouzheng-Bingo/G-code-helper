@@ -8,6 +8,8 @@ os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 from api_backend import run_api
 from utils.schedule import get_scheduler
 from webui import run_webui
+from model.preload_manager import get_preload_manager
+from loguru import logger
 
 import matplotlib
 matplotlib.use('Agg')
@@ -21,6 +23,12 @@ Get-ChildItem Env:PY_ENVIRONMENT
 """
 
 def create_app():
+    # 预加载所有模型
+    logger.info("🚀 正在预加载模型，请稍候...")
+    preload_manager = get_preload_manager()
+    preload_manager.preload_all_models()
+    logger.info("✅ 模型预加载完成，启动应用服务...")
+    
     # 创建并启动API后端线程
     api_backend_thread = threading.Thread(target=run_api)
     api_backend_thread.start()

@@ -598,3 +598,53 @@ If the error persists, please using management api.
 2025-07-30 14:05:03.905 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
 2025-07-30 14:57:33.645 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
 2025-07-30 14:57:33.681 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-07-31 09:46:01.208 | WARNING  | logger:warning:51 - Failed to connect to Neo4j graph database: Cannot open connection to ConnectionProfile('bolt://localhost:7687')
+2025-07-31 09:46:01.209 | WARNING  | logger:warning:51 - Failed to connect to Neo4j graph database: Cannot open connection to ConnectionProfile('bolt://localhost:7687')
+2025-07-31 09:47:17.554 | WARNING  | logger:warning:51 - Failed to connect to Neo4j graph database: Cannot open connection to ConnectionProfile('bolt://localhost:7687')
+2025-07-31 09:47:17.556 | WARNING  | logger:warning:51 - Failed to connect to Neo4j graph database: Cannot open connection to ConnectionProfile('bolt://localhost:7687')
+2025-07-31 09:47:17.560 | WARNING  | logger:warning:51 - Failed to connect to Neo4j graph database: Cannot open connection to ConnectionProfile('bolt://localhost:7687')
+2025-07-31 09:48:35.894 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-07-31 09:48:35.897 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-07-31 09:53:24.149 | INFO     | __main__:create_app:27 - 🚀 正在预加载模型，请稍候...
+2025-07-31 09:53:24.151 | INFO     | model.preload_manager:preload_all_models:23 - 🚀 开始预加载所有模型...
+2025-07-31 09:53:24.152 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-07-31 09:53:24.154 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-07-31 09:53:24.155 | INFO     | model.preload_manager:_preload_entity_searcher:59 - ✅ 实体搜索模型加载成功，耗时: 0.00秒
+2025-07-31 09:53:24.155 | ERROR    | model.preload_manager:_preload_rag_retriever:91 - ❌ RAG检索模型加载失败: Model not built
+2025-07-31 09:53:24.254 | INFO     | model.preload_manager:_preload_llm_client:110 - ✅ LLM客户端加载成功，耗时: 0.10秒
+2025-07-31 09:53:24.265 | INFO     | model.preload_manager:_preload_intent_classifiers:131 - ✅ 意图分类器加载成功，耗时: 0.01秒
+2025-07-31 09:53:24.267 | INFO     | model.preload_manager:preload_all_models:39 - ✅ 所有模型预加载完成，总耗时: 0.11秒
+2025-07-31 09:53:24.267 | INFO     | model.preload_manager:_print_load_summary:139 - 📊 模型加载时间统计:
+2025-07-31 09:53:24.270 | INFO     | model.preload_manager:_print_load_summary:142 -   ✅ entity_searcher: 0.00秒
+2025-07-31 09:53:24.271 | INFO     | model.preload_manager:_print_load_summary:142 -   ❌ rag_retriever: 0.00秒
+2025-07-31 09:53:24.273 | INFO     | model.preload_manager:_print_load_summary:142 -   ✅ llm_client: 0.10秒
+2025-07-31 09:53:24.274 | INFO     | model.preload_manager:_print_load_summary:142 -   ❌ intent_classifiers: 0.01秒
+2025-07-31 09:53:24.275 | INFO     | __main__:create_app:30 - ✅ 模型预加载完成，启动应用服务...
+2025-07-31 10:54:24.485 | INFO     | model.preload_manager:preload_all_models:23 - 🚀 开始预加载所有模型...
+2025-07-31 10:54:24.487 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-07-31 10:54:24.488 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-07-31 10:54:24.488 | INFO     | model.preload_manager:_preload_entity_searcher:59 - ✅ 实体搜索模型加载成功，耗时: 0.00秒
+2025-07-31 10:54:24.488 | ERROR    | model.preload_manager:_preload_rag_retriever:91 - ❌ RAG检索模型加载失败: Model not built
+2025-07-31 10:54:24.526 | INFO     | model.preload_manager:_preload_llm_client:110 - ✅ LLM客户端加载成功，耗时: 0.04秒
+2025-07-31 10:54:24.528 | INFO     | model.preload_manager:_preload_intent_classifiers:131 - ✅ 意图分类器加载成功，耗时: 0.00秒
+2025-07-31 10:54:24.528 | INFO     | model.preload_manager:preload_all_models:39 - ✅ 所有模型预加载完成，总耗时: 0.04秒
+2025-07-31 10:54:24.528 | INFO     | model.preload_manager:_print_load_summary:139 - 📊 模型加载时间统计:
+2025-07-31 10:54:24.529 | INFO     | model.preload_manager:_print_load_summary:142 -   ✅ entity_searcher: 0.00秒
+2025-07-31 10:54:24.529 | INFO     | model.preload_manager:_print_load_summary:142 -   ❌ rag_retriever: 0.00秒
+2025-07-31 10:54:24.529 | INFO     | model.preload_manager:_print_load_summary:142 -   ✅ llm_client: 0.04秒
+2025-07-31 10:54:24.529 | INFO     | model.preload_manager:_print_load_summary:142 -   ❌ intent_classifiers: 0.00秒
+2025-07-31 11:40:48.481 | INFO     | __main__:create_app:27 - 🚀 正在预加载模型，请稍候...
+2025-07-31 11:40:48.481 | INFO     | model.preload_manager:preload_all_models:23 - 🚀 开始预加载所有模型...
+2025-07-31 11:40:48.482 | INFO     | model.graph_entity.search_model:reload:76 - loading entity searcher [version:1]
+2025-07-31 11:40:48.484 | INFO     | logger:info:37 - successfully <blue>loaded</blue> entity searcher [version:1]
+2025-07-31 11:40:48.484 | INFO     | model.preload_manager:_preload_entity_searcher:59 - ✅ 实体搜索模型加载成功，耗时: 0.00秒
+2025-07-31 11:40:48.484 | ERROR    | model.preload_manager:_preload_rag_retriever:91 - ❌ RAG检索模型加载失败: Model not built
+2025-07-31 11:40:48.527 | INFO     | model.preload_manager:_preload_llm_client:110 - ✅ LLM客户端加载成功，耗时: 0.04秒
+2025-07-31 11:40:48.529 | INFO     | model.preload_manager:_preload_intent_classifiers:131 - ✅ 意图分类器加载成功，耗时: 0.00秒
+2025-07-31 11:40:48.529 | INFO     | model.preload_manager:preload_all_models:39 - ✅ 所有模型预加载完成，总耗时: 0.05秒
+2025-07-31 11:40:48.529 | INFO     | model.preload_manager:_print_load_summary:139 - 📊 模型加载时间统计:
+2025-07-31 11:40:48.529 | INFO     | model.preload_manager:_print_load_summary:142 -   ✅ entity_searcher: 0.00秒
+2025-07-31 11:40:48.529 | INFO     | model.preload_manager:_print_load_summary:142 -   ❌ rag_retriever: 0.00秒
+2025-07-31 11:40:48.530 | INFO     | model.preload_manager:_print_load_summary:142 -   ✅ llm_client: 0.04秒
+2025-07-31 11:40:48.530 | INFO     | model.preload_manager:_print_load_summary:142 -   ❌ intent_classifiers: 0.00秒
+2025-07-31 11:40:48.530 | INFO     | __main__:create_app:30 - ✅ 模型预加载完成，启动应用服务...
