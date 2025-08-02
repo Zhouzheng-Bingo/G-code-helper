@@ -1,0 +1,124 @@
+\begin{algorithm}[H]
+    \caption{Actor-Critic Task Offloading}
+    \label{alg:actor_critic_offloading}
+    \KwIn{\\
+        \texttt{latency\_edge}, \texttt{latency\_server}: Arrays of latencies for each task on edge and server\\
+        \texttt{data\_transmission\_t}, \texttt{data\_transmission\_t\_}: Data transmission times for edge and server\\
+        \texttt{alpha}: Weighting factor between latency and throughput
+    }
+    \textbf{Initialize:}\\
+        Actor and Critic neural networks\\
+        Optimizers for both networks\\
+        $current\_task \gets 0$\\
+        $done \gets \text{False}$\\
+        $total\_reward \gets 0$
+    
+    \textbf{Repeat} until $done$ is True:\\
+        \Begin{
+            $state \gets \text{Get current state}()$\\
+            $action\_prob \gets \text{Actor}(state)$\\
+            $action \gets \text{Sample from } action\_prob$\\
+            $next\_state, reward, done \gets \text{Environment Step}(action)$\\
+            $total\_reward \gets total\_reward + reward$\\
+            $value \gets \text{Critic}(state)$\\
+            $next\_value \gets \text{Critic}(next\_state)$\\
+            $td\_target \gets reward + 0.99 \times next\_value$\\
+            $td\_error \gets td\_target - value$\\
+            \textit{Compute losses for both actor and critic}\\
+            \textit{Update weights using backpropagation}\\
+            $current\_task \gets current\_task + 1$\\
+        }
+    \KwOut{Total reward after completing all tasks}
+    \end{algorithm}
+    
+    \begin{algorithm}[H]
+        \caption{Task Offloading Environment Simulation}
+        \label{alg:task_offloading}
+        \KwIn{
+            $n$: Total number of tasks\\
+            $latency\_edge[n]$: Array of latencies at the edge for each task\\
+            $latency\_server[n]$: Array of latencies at the server for each task\\
+            $data\_transmission\_t[n]$: Data transmission times at the edge\\
+            $data\_transmission\_t\_[n]$: Data transmission times at the server\\
+            }
+        \textbf{Initialize}\\
+                $current\_task \gets 0$\\
+                $epsilon$: Exploration rate for selecting actions\\
+                $q\_table[n, 2]$: Q-table initialized to zero\\
+                $\gamma$: Discount factor for future rewards\\
+                $\alpha$: Weighting factor for latency and throughput in the reward calculation\\
+        \textbf{Output}\\
+            $reward$: Calculated reward for the current action\\
+            
+        \Begin{
+            \While{$current\_task < n$}{
+                \eIf{$random() < epsilon$}{
+                    $action \gets random\_choice([0, 1])$ \tcp*{Exploration}
+                }{
+                    $action \gets \arg\max(q\_table[current\_task, :])$ \tcp*{Exploitation}
+                }
+                \eIf{$action == 0$}{
+                    $latency \gets latency\_edge[current\_task] + data\_transmission\_t[current\_task]$ \tcp*{Latency on edge}
+                }{
+                    $latency \gets latency\_server[current\_task] + data\_transmission\_t\_[current\_task]$ \tcp*{Latency on server}
+                }
+                $disturbance \gets estimate\_disturbance(latency, action)$ \tcp*{Estimate real-world disturbances}
+                $throughput \gets max(\sum latency\_edge[:current\_task + 1], \sum latency\_server[current\_task:]$ \\
+                $normalized\_latency \gets (latency - \min(latency\_edge) ) / (\max(latency\_edge) - \min(latency\_edge))$ \\
+                $normalized\_throughput \gets (throughput - \min(latency\_edge) ) / (\max(latency\_edge) - \min(latency\_edge))$ \\
+                $reward \gets -\alpha \cdot \log(normalized\_latency + 1e-3) + (1 - \alpha) \cdot \log(normalized\_throughput + 1e-3)$ \tcp*{Reward calculation}
+                $q\_table[current\_task, action] \gets q\_table[current\_task, action] + $ \\
+                \quad\quad $\gamma \cdot (reward + \gamma \cdot \max(q\_table[current\_task + 1, :]) - q\_table[current\_task, action])$ \\
+                $current\_task \gets current\_task + 1$ \\
+            }
+            \Return{$reward$}
+        }
+        \Function{estimate\_disturbance}{$latency, action$}{
+            \KwOut{$disturbance$}
+            $expected\_latency \gets latency\_edge \textbf{ if } action == 0 \textbf{ else } latency\_server$ \\
+            $actual\_latency \gets normal(\mu=expected\_latency, \sigma=0.1)$ \\
+            $disturbance \gets actual\_latency - expected\_latency$ \\
+            \Return{$disturbance$}
+        }
+    \end{algorithm}
+    
+
+    \begin{algorithm}[H]
+    \caption{Q-Learning for Task Offloading Environment}
+    \label{alg:task_offloading_q_learning}
+    \KwIn{\\
+        $\alpha$: Learning rate \\
+        $\gamma$: Discount factor \\
+        $\epsilon$: Exploration rate \\
+        $latency\_edge[], latency\_server[]$: Arrays of latency data for edge and server \\
+        $data\_transmission\_t[], data\_transmission\_t_[]$: Data transmission delays for edge and server \\
+    }
+    \textbf{Initialize:}\\
+        $Q_{table}[25][2] \leftarrow 0$: Initialize Q-table for 25 tasks and 2 actions (edge, server) \\
+        $task \leftarrow 0$: Index of the current task \\
+    \textbf{Output:}\\
+        $reward$: Reward received after taking an action \\
+    
+    \Begin{
+        \While{task $<$ 25}{
+            Select $action$ based on $\epsilon$-greedy policy: \\
+            \eIf{$random() < \epsilon$}{
+                $action \leftarrow$ Random action (0 or 1)
+            }{
+                $action \leftarrow \arg\max(Q_{table}[task])$
+            }
+            \eIf{$action == 0$}{
+                $latency \leftarrow latency\_edge[task] + data\_transmission\_t[task]$
+            }{
+                $latency \leftarrow latency\_server[task] + data\_transmission\_t_[task]$
+            }
+            Calculate $disturbance$ based on estimated vs. actual latency \\
+            $reward \leftarrow$ Calculate reward based on $latency$, $disturbance$ \\
+            Update Q-table using Bellman equation: \\
+            $Q_{table}[task][action] \leftarrow Q_{table}[task][action] + \alpha \left( reward + \gamma \max(Q_{table}[task + 1]) - Q_{table}[task][action] \right)$ \\
+            $task \leftarrow task + 1$
+        }
+    }
+\end{algorithm}
+
+
