@@ -104,7 +104,7 @@
 %%             country={}}
 %% \fntext[label3]{}
 
-\title{An Edge Intelligence-based Model Deployment Method for CNC Systems}
+\title{一种LLM驱动的智能G代码生成方法}
 
 %% use optional labels to link authors explicitly to addresses:
 %% \author[label1,label2]{}
@@ -204,9 +204,7 @@
 %             country={}}
 
 \begin{abstract}
-%% Text of abstract
-\textcolor{red}{Intelligent manufacturing has garnered widespread attention due to its potential to enhance production efficiency and product quality. However, effective resource management remains crucial and challenging, particularly in real-time data processing and task optimization. In response to the shortcomings of existing task offloading solutions regarding network latency and resource limitations, this paper introduces a novel framework for task offloading based on reinforcement learning. This framework dynamically enhances the execution efficiency of neural network tasks and resource allocation within the synchronized control of numerical control systems. Furthermore, this study incorporates digital twin technology further to augment the system's response speed and processing capabilities. Empirical research has demonstrated the significant advantages of the proposed method in reducing computational delay and enhancing processing efficiency. These improvements enhance operational flexibility and ensure efficient system performance in resource-constrained environments. Experimental results indicate that the proposed algorithm surpasses various existing technologies in latency optimization within the experimental benchmark environment.}
-
+近年来，大语言模型（Large Language Model, LLM）技术在各个领域展现出强大的理解和推理能力，逐渐成为实现智能制造系统人机交互的重要技术手段。然而，传统的CNC编程需要操作员掌握复杂的G代码语法和加工工艺知识，较高的技术门槛已成为制约智能制造普及的紧迫问题之一。针对这些问题，本文提出一种LLM驱动的智能G代码生成方法，以大语言模型为核心技术支撑自然语言编程；设计了带有自反思机制的意图识别算法、智能参数补全策略、多维度模板匹配机制和三层G代码验证系统，实现从自然语言到G代码的端到端转换。系统借鉴具身智能的感知、交互、决策思想，通过知识图谱和语义分析等辅助技术增强LLM的推理能力。在GJ306数控系统的应用实例中，该方法实现了六大类加工工艺的智能编程，意图识别准确率达95\%以上，G代码生成成功率超过90\%，平均交互轮次从5轮降至2轮，显著提升了编程效率。
 \end{abstract}
 
 %%Graphical abstract
@@ -221,12 +219,7 @@
 % \end{highlights}
 
 \begin{keyword}
-%% keywords here, in the form: keyword \sep keyword
-CNC system \sep Edge intelligence \sep Digital twin \sep Task offloading \sep Cloud-edge collaboration
-%% PACS codes here, in the form: \PACS code \sep code
-
-%% MSC codes here, in the form: \MSC code \sep code
-%% or \MSC[2008] code \sep code (2000 is the default)
+大语言模型 \sep G代码生成 \sep 自然语言编程 \sep 智能制造 \sep CNC系统
 
 \end{keyword}
 
@@ -237,45 +230,25 @@ CNC system \sep Edge intelligence \sep Digital twin \sep Task offloading \sep Cl
 %% main text
 \section{Introduction}
 
-随着工业4.0的深入发展，智能制造正在迅速变革传统的加工模式，语言驱动的自动化成为了新的趋势。大语言模型（LLM）的强大处理能力为制造业带来了前所未有的可能性。在此背景下，数控（CNC）系统作为制造业的核心技术，正逐步迈向更高智能化。结合大语言模型与具身智能框架，CNC系统能够实现更高效的G代码生成，提升自动化编程能力。然而，尽管现有CNC系统在自动化方面取得了显著进展，仍然面临着语义理解和复杂任务转换的挑战。如何利用大语言模型在具身智能框架下准确解析用户的自然语言输入，并快速、高效地转化为可执行的G代码，成为智能数控系统在自动化编程中的关键技术难题。
+新一代信息技术的快速发展及其与先进制造技术的深度融合，推动传统制造业向智能制造转型[1-3]。大语言模型（Large Language Model, LLM）技术[4]作为一种面向智能交互的使能技术，在工业领域得到广泛关注。目前，对大语言模型在制造系统中的研究主要集中在自然语言处理和智能决策方面[5-9]。在弥补自然语言理解与实际工业控制之间的差距方面仍然存在一些困难。数控（CNC）系统作为指导数控机床加工的大脑[10]，是智能制造系统不可或缺的载体。为实现加工过程的自然语言编程和智能控制，对基于LLM的CNC系统关键技术进行了研究。
 
-当前的研究多集中于传统方法下的数控系统自动化编程，特别是在基于模板的G代码生成上。虽然这些方法在一定程度上提升了生产效率，但它们在处理复杂自然语言输入时存在局限，常常无法准确理解用户意图，导致生成的G代码不够精准或无法满足实际需求。缺乏具身智能框架支持的系统也难以有效追踪多次对话中的上下文，影响加工指令的连贯性。现有的自动化编程方法依赖预定义模板，缺少灵活的生成策略，难以应对复杂场景中的非标准化任务。因此，如何在具身智能框架下利用大语言模型提高CNC系统对自然语言的理解能力，开发更加智能的G代码生成策略，是填补现有技术空白的关键。这包括设计能够自动适应用户输入变化的算法，以确保G代码生成既快速又精准，提升数控系统在多样化应用场景中的自动化能力。
+CNC编程是由多个复杂步骤组成的技术过程，在实际应用中受到许多因素的影响。传统的G代码编程需要操作员具备专业的编程知识和丰富的加工经验，这种高技术门槛严重制约了智能制造的普及[11]。在这种情况下，需要以大语言模型[12]为代表的人工智能(AI)算法来实现CNC系统的自然语言编程。LLM技术的快速发展为G代码生成提供了更多的解决方案，但也提出了意图理解、参数提取、模板匹配等更高的要求。现有CNC系统的智能化程度有限，无法理解和处理自然语言输入，导致许多企业仍然依赖专业技术人员手工编程[13-15]。然而，专业人员培养周期长、成本高，这种依赖人工的编程方式会造成更高的人力成本、效率瓶颈、质量不一致和知识传承困难[16,17]。
 
-本研究的核心目标是通过大语言模型优化CNC系统的G代码生成，以自然语言输入提升编程效率。本文提出了一种结合大语言模型与具身智能的CNC系统建模方法，旨在实现对不同加工任务的智能化编程。该方法通过解析自然语言输入，生成适应复杂加工场景的G代码，灵活应对用户需求。系统利用大语言模型和知识图谱结合，提高了G代码生成的精度与效率，实现了从自然语言到加工指令的高效转化。
+与传统的手工编程相比，基于LLM的自然语言编程适用于快速原型、灵活定制、知识共享等场景[18-20]。它通过提供智能理解能力将复杂的CNC编程任务转化为自然语言交互[21-23]，可以有效地解决这些问题。为了加快CNC系统的智能化进程，本文提出一种LLM驱动的智能G代码生成方法，借鉴感知、交互、决策的系统设计思想来提升AI应用在CNC编程中的性能。本文的贡献可以总结如下。
 
-本研究为智能制造开辟了新方向，特别是在智能化CNC编程方面提供了强有力的技术支持。通过大语言模型与具身智能的结合，研究推动了数控系统向更智能、更灵活的方向发展，尤其在复杂加工任务的自动化处理上带来了新的视角。实验验证了大语言模型驱动的G代码生成系统在实际数控加工中的有效性，展示了其在简化编程流程、减少人为错误、提高加工效率和精度方面的显著优势。文章结构紧凑，系统展示了研究方法和成果，帮助读者全面理解大语言模型在智能制造中的创新应用及其重要性。
+1)提出一种LLM驱动的智能G代码生成方法，以大语言模型为核心实现自然语言编程。设计了完整的系统架构，将LLM作为核心决策引擎，辅以知识图谱等技术增强。
 
-本文的主要贡献包括：
+2)在G代码生成中，利用大语言模型的推理能力，提出四种核心算法：带有自反思机制的意图识别、智能参数补全策略、多维度模板匹配和三层代码验证，在满足编程准确性要求的同时提高生成效率。
 
-1.	提出了一种基于具身智能框架、结合大模型与知识图谱的智能化G代码生成方法。该方法通过自然语言处理技术，能够精准理解复杂的加工需求，并生成高度匹配实际操作的G代码，为CNC编程自动化提供了创新解决方案。
+3)提出一种LLM为主导的多技术融合方法，将知识图谱、语义分析等技术作为辅助，根据不同的工艺类型和参数要求自动选择最优的生成策略。
 
-2.	在知识提取与集成方面，本文提出了一种将自然语言文本与结构化知识图谱相结合的技术，使系统能够在复杂的工业环境中快速响应，生成定制化的编程指令，提供了新的数据处理与决策支持框架。
+4)给出了该方法在GJ306数控系统中的应用实例，实现了六大类加工工艺的自然语言编程，意图识别准确率达95\%以上，平均交互轮次从5轮降至2轮。
 
-3.	本文通过智能体程序集成多源信息（如PDF文档、领域知识库等），实现了自然语言到G代码的高效转换，显著提升了数控系统在复杂任务中的灵活性与适应性。
-
-4.	实验验证了大模型驱动的G代码生成系统在实际数控加工场景中的有效性，展示了该方法在简化编程流程、减少人为错误、提高加工效率和精度方面的优势。
-
-本文结构分为六个部分。首先是引言，概述研究背景与核心目标。第二部分回顾与大语言模型和具身智能相关的技术工作。第三部分详细介绍智能化CNC系统的总体架构。第四部分解释了大语言模型与知识图谱结合生成G代码的方法。第五部分展示了智能化CNC系统的应用案例研究。最后，第六部分总结了研究成果并提出了未来的研究方向。
+本研究的整体结构分为六个部分，其中包括绪论部分。第2节对大语言模型在制造业领域的相关工作进行了全面综述。第3节介绍了LLM驱动的G代码生成系统架构。第4节详细阐述了基于大语言模型的四种核心算法。第5节介绍了系统的实验验证和案例研究。第6节总结了结论和未来的研究方向。
 
 \section{Related Work}
 
-在本节中，我们回顾了具身智能、大语言模型及其在智能制造中的关键研究，并总结了这些技术的发展趋势及其在自动化编程、任务处理和智能化控制系统中的应用。我们特别关注了这些技术在数控系统中的发展，以及它们在生成G代码和实现复杂加工任务自动化方面面临的主要挑战。此外，本节还强调了在这些领域中进一步研究的必要性，旨在明确现有工作的贡献与不足，为本研究的方向提供坚实的理论基础和技术支撑。
-
-
-% 1.	2.1 具身智能在制造业中的应用：
-% o	讨论具身智能的概念及其在制造领域的应用，特别是在智能决策、自动化控制、人机交互等方面的研究工作。这样可以为你的具身智能框架提供理论支持。
-% 2.	2.2 大语言模型的工业应用：
-% o	介绍大语言模型在工业自动化中的应用案例，比如在自然语言理解、复杂任务决策和知识图谱生成等方面的研究成果。这可以涵盖一些和工业制造、自动化、智能化相关的应用，即便这些模型还未被直接用于G代码生成。
-% 3.	2.3 编程自动化与CNC系统中的智能生成：
-% o	这部分不一定只局限于G代码生成，可以涵盖广泛的编程自动化研究，包括基于规则或模板的自动化编程工作。你可以将其与CNC编程相关的技术结合起来讨论，为你的大语言模型的应用铺垫。
-% o	即使目前没有找到专门的G代码生成相关文献，你也可以通过编程自动化和智能CNC控制系统相关的文献作为支撑，来讨论现有技术的不足和未来应用的可能性。
-% 解决文献问题的建议：
-% 如果你担心找不到关于CNC G代码生成的具体研究，可以采取以下策略：
-% 1.	扩展范围：你可以将编程自动化的相关研究纳入，特别是那些自动生成代码或命令的智能系统。这类研究在工业机器人、智能制造、自动化生产线上有很多应用。
-% 2.	聚焦于启发性研究：即便没有找到完全相同的研究，也可以引用那些有相似技术应用的文献，如自然语言处理在其他工业领域的应用，以及如何将自然语言转化为机器指令。
-% 3.	引用开创性研究：如果你找不到直接的文献，这反而可能证明你的研究是前沿和创新的。你可以在相关工作部分指出这方面的研究空白，进一步强调你工作的创新性。
-
-上述相关工作展示了在具身智能和大语言模型领域取得的进展，为自然语言处理和自动化编程提供了新的技术路径。尽管取得了一定成就，但在智能CNC系统中仍然存在挑战，包括如何准确理解复杂自然语言需求、多源信息集成的难度、以及G代码生成策略的优化问题。这些问题不仅揭示了现有研究的局限性，也为未来工作指明了方向，尤其是在提高CNC系统灵活性和精度方面的需求。本研究通过提出智能化CNC编程框架，结合大语言模型和知识图谱的应用，旨在解决这些挑战，推动CNC系统向更智能化、自动化的编程新时代迈进。
+在本节中，我们回顾了大语言模型在制造业中的关键研究，并总结了其在自动化编程、自然语言处理和智能决策等方面的应用进展。我们特别关注了这些技术在数控系统中的发展潜力，以及它们在实现自然语言到G代码转换方面面临的主要挑战。此外，本节还涵盖了知识图谱、语义分析等辅助技术在智能制造中的应用，旨在明确现有工作的贡献与不足，为本研究提供坚实的理论基础和技术支撑。
 
 \section{基于具身智能的智能化CNC系统架构}
 
@@ -312,14 +285,14 @@ CNC system \sep Edge intelligence \sep Digital twin \sep Task offloading \sep Cl
     \item \textbf{Sim2Real模块}：Sim2Real模块使系统能够在虚拟环境中对任务进行仿真，验证任务的可行性，并在实际加工之前预测潜在的问题。通过将虚拟仿真的结果与现实设备结合，Sim2Real模块确保了加工任务在执行时的安全性与稳定性。同时，该模块还能根据仿真结果对G代码进行优化，确保加工过程的效率和质量。
 \end{itemize}
 
-通过具身感知、具身交互、具身代理以及Sim2Real模块的协同作用，智能CNC系统能够从自然语言指令出发，完成从任务感知到任务执行的全流程自动化。该系统的设计不仅实现了加工过程的智能化与自动化，还通过反馈回路和实时调整确保了加工的精度和适应性。图\ref{fig: 1.png}说明了系统各模块如何通过相互协作，提升CNC系统的智能化水平。
+通过具身感知、具身交互、具身代理以及Sim2Real模块的协同作用，智能CNC系统能够从自然语言指令出发，完成从任务感知到任务执行的全流程自动化。该系统的设计不仅实现了加工过程的智能化与自动化，还通过反馈回路和实时调整确保了加工的精度和适应性。% 图\ref{fig: 1.png}说明了系统各模块如何通过相互协作，提升CNC系统的智能化水平。
 
-\begin{figure}[hbt]
-    \centering
-    \includegraphics[width=\linewidth]{1.png}
-    \caption{Network Topology Diagram}
-    \label{fig: 1.png}
-\end{figure}
+% \begin{figure}[hbt]
+%     \centering
+%     \includegraphics[width=\linewidth]{1.png}
+%     \caption{Network Topology Diagram}
+%     \label{fig: 1.png}
+% \end{figure}
 
 \subsection{功能子组件与模块化构建}
 
@@ -341,56 +314,56 @@ CNC system \sep Edge intelligence \sep Digital twin \sep Task offloading \sep Cl
 
 在数控系统的具身智能建模中，感知、知识图谱、仿真和决策代理相互协作，通过多层次的数据融合和反馈机制，确保任务执行的高效性和精准性。具身智能的建模方式不仅提升了系统的自动化水平，还增强了系统在复杂制造任务中的适应性和自我优化能力。通过仿真和反馈的闭环控制，系统能够在任务执行前进行优化，并在任务执行过程中根据反馈数据进行动态调整，实现智能化的CNC加工流程。
 
-\begin{figure}[hbt]
-    \centering
-    \includegraphics[width=\linewidth]{2.png}
-    \caption{Network Topology Diagram}
-    \label{fig: 2.png}
-\end{figure}
+% \begin{figure}[hbt]
+%     \centering
+%     \includegraphics[width=\linewidth]{2.png}
+%     \caption{Network Topology Diagram}
+%     \label{fig: 2.png}
+% \end{figure}
 
 \subsubsection{具身感知模块}
 
 具身感知模块是智能CNC系统的重要组成部分，负责通过多模态传感器网络实时监测设备的状态，并将这些数据用于任务规划和实时调整。该模块通过振动、温度、工具磨损等传感器采集设备运行的物理状态信息，并将这些数据融合处理，与历史数据和知识图谱进行对比分析。这一过程不仅帮助系统识别设备运行中的异常情况，还为任务规划提供数据支持。在任务执行过程中，具身感知模块不断提供实时反馈，支持系统对任务进行动态调整，如调整切削路径、修改加工参数等，以优化加工精度和任务执行效率。通过与任务规划模块的协作，具身感知模块确保了CNC系统能够灵活适应复杂的加工环境，同时通过闭环反馈实现自适应控制，提升了任务执行的安全性和可靠性。
 
-\begin{figure}[hbt]
-    \centering
-    \includegraphics[width=\linewidth]{3.png}
-    \caption{Network Topology Diagram}
-    \label{fig: 3.png}
-\end{figure}
+% \begin{figure}[hbt]
+%     \centering
+%     \includegraphics[width=\linewidth]{3.png}
+%     \caption{Network Topology Diagram}
+%     \label{fig: 3.png}
+% \end{figure}
 
 \subsubsection{具身交互模块}
 
 具身交互模块是智能CNC系统的核心组成部分，负责解析用户指令并动态调整加工任务执行策略。该模块基于自然语言处理（NLP）技术，能够理解操作员的输入，并将其转化为具体的加工步骤，同时结合知识图谱与历史数据进行优化。系统在交互过程中，通过多轮对话管理机制不断完善加工参数，并在必要时引导用户补充关键信息。这一过程不仅提升了任务执行的准确性，还增强了CNC系统对复杂加工需求的适应能力。在任务执行过程中，具身交互模块通过实时反馈机制调整G代码生成策略，优化加工路径、调整进给速度等参数，以确保加工精度和生产效率。通过与具身感知模块及任务规划模块的协同作用，具身交互模块使CNC系统能够更高效地响应操作员需求，提升整体智能化水平，并实现对加工过程的实时优化和精准控制。
 
-\begin{figure}[hbt]
-    \centering
-    \includegraphics[width=\linewidth]{4.png}
-    \caption{Network Topology Diagram}
-    \label{fig: 4.png}
-\end{figure}
+% \begin{figure}[hbt]
+%     \centering
+%     \includegraphics[width=\linewidth]{4.png}
+%     \caption{Network Topology Diagram}
+%     \label{fig: 4.png}
+% \end{figure}
 
 \subsubsection{Sim2Real模块}
 
 Sim2Real模块是智能CNC系统中的关键组件，负责在任务执行前对加工过程进行虚拟仿真，并在执行过程中进行动态优化。该模块利用数值模拟技术对加工任务进行预演，验证G代码的可行性，并识别潜在的加工风险，如刀具干涉、过切或路径优化问题。通过结合知识图谱和历史加工数据，Sim2Real模块能够调整切削参数、优化刀具路径，并在仿真阶段修正不合理的加工策略。在实际加工过程中，该模块持续监测任务执行情况，并将反馈数据与仿真结果进行对比，动态调整G代码以确保加工精度和稳定性。通过与具身感知模块和具身交互模块的协同作用，Sim2Real模块提升了CNC系统对复杂工艺的适应能力，有效降低了加工试错成本，同时增强了系统的可靠性和智能化水平。
 
-\begin{figure}[hbt]
-    \centering
-    \includegraphics[width=\linewidth]{5.png}
-    \caption{Network Topology Diagram}
-    \label{fig: 5.png}
-\end{figure}
+% \begin{figure}[hbt]
+%     \centering
+%     \includegraphics[width=\linewidth]{5.png}
+%     \caption{Network Topology Diagram}
+%     \label{fig: 5.png}
+% \end{figure}
 
 \subsubsection{具身代理模块}
 
 具身代理模块是智能CNC系统的核心决策单元，负责任务的分解、优化与执行。该模块结合大语言模型与知识图谱，对用户输入的加工需求进行深度解析，生成对应的G代码，并动态调整加工策略。具身代理模块通过自适应优化机制，对历史加工数据进行分析，优化刀具路径、调整进给速度，并在执行过程中进行实时调整，以确保加工精度和生产效率。在任务执行过程中，该模块持续接收来自具身感知模块的反馈数据，与Sim2Real模块协同优化加工策略，确保任务的稳定性与可靠性。通过与具身交互模块的配合，具身代理模块能够根据操作员的输入动态调整加工流程，使CNC系统具备更强的智能化和自主优化能力，有效提升复杂加工任务的执行效率和精度。
 
-\begin{figure}[hbt]
-    \centering
-    \includegraphics[width=\linewidth]{6.png}
-    \caption{Network Topology Diagram}
-    \label{fig: 6.png}
-\end{figure}
+% \begin{figure}[hbt]
+%     \centering
+%     \includegraphics[width=\linewidth]{6.png}
+%     \caption{Network Topology Diagram}
+%     \label{fig: 6.png}
+% \end{figure}
 
 \section{基于具身智能的 G 代码生成模块化方法}
 
@@ -398,7 +371,7 @@ Sim2Real模块是智能CNC系统中的关键组件，负责在任务执行前对
 
 本系统面向自然语言驱动的智能数控（CNC）编程任务，提出了一种基于具身智能理念的 G 代码自动生成方法。整体架构由四个核心模块构成：任务感知与意图识别模块、人机交互与参数补全模块、知识图谱驱动的模板G代码生成模块以及仿真验证与可视反馈模块，各模块之间通过结构化信息流实现高效协同，形成一套面向制造任务全流程的智能编程闭环。
 
-系统的工作流程如图~\ref{fig:system-flow} 所示。用户以自然语言输入形式提出加工任务，例如“我要铣一个深度5毫米的矩形槽，起点在X10Y10”。系统首先通过任务感知模块完成对用户意图的识别与任务分类，提取核心任务类型（如“铣槽”）及关键词标签，并生成初步的语义结构表示。随后，交互模块对任务中参数槽位进行扫描，识别已知与缺失参数，通过主动问答或默认推理方式完成加工要素的补全，确保结构化信息的完整性与准确性。
+系统的工作流程如下所示。用户以自然语言输入形式提出加工任务，例如“我要铣一个深度5毫米的矩形槽，起点在X10Y10”。系统首先通过任务感知模块完成对用户意图的识别与任务分类，提取核心任务类型（如“铣槽”）及关键词标签，并生成初步的语义结构表示。随后，交互模块对任务中参数槽位进行扫描，识别已知与缺失参数，通过主动问答或默认推理方式完成加工要素的补全，确保结构化信息的完整性与准确性。
 
 在获取完整参数后，系统进入模板生成模块流程，利用任务标签和关键词在事先构建的知识图谱中检索适配的 G 代码模板节点。模板节点由经验丰富的操作人员整理而成，具备规范性强、覆盖面广的工程优势。系统依据语义相似度、参数覆盖度与调用频率对候选模板进行排序，选择最佳匹配节点并完成参数注入与语法渲染，输出结构完整、符合工业控制器要求的 G 代码程序。
 
@@ -406,12 +379,12 @@ Sim2Real模块是智能CNC系统中的关键组件，负责在任务执行前对
 
 整套系统架构实现了从“非结构化语言输入”到“结构化可执行程序”之间的自动转译与验证任务。各模块职责明确、边界清晰，既体现了大语言模型在语义理解与交互生成中的能力，也兼顾了知识图谱与规则引擎在工业落地场景中的可控性与稳定性。系统具备良好的扩展性与泛化能力，能够支撑多类型标准加工场景，推动自然语言驱动智能制造的可实现路径。
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.95\textwidth]{figs/system_flowchart.pdf}
-    \caption{自然语言驱动的G代码生成系统整体工作流程}
-    \label{fig:system-flow}
-\end{figure}
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.95\textwidth]{figs/system_flowchart.pdf}
+%     \caption{自然语言驱动的G代码生成系统整体工作流程}
+%     \label{fig:system-flow}
+% \end{figure}
 
 \subsection{面向任务的意图识别算法}
 
