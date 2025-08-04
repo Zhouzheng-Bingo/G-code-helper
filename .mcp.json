@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "zen": {
+      "command": "python",
+      "args": ["/Users/zhouzheng/zen-mcp-server/server.py"],
+      "env": {
+        "PYTHONPATH": "/Users/zhouzheng/zen-mcp-server"
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "providers": [
+    {
+      "name": "yunwu-o3",
+      "api_url": "https://yunwu.ai/v1",
+      "api_key": "sk-pVC2mtezerJoDgzcqBm2ZDxMbhgQwbyPSwdO4PqG13cVxOLn",
+      "models": [
+        {
+          "id": "o3",
+          "name": "O3 Pro - 复杂推理",
+          "context_window": 200000,
+          "description": "用于复杂推理任务"
+        },
+        {
+          "id": "o3-mini",
+          "name": "O3 Mini - 平衡性能",
+          "context_window": 200000,
+          "description": "平衡性能和成本"
+        }
+      ]
+    },
+    {
+      "name": "yunwu-gemini",
+      "api_url": "https://yunwu.ai/v1",
+      "api_key": "sk-2vabeHpzV3201n7mKR8ICxBbHgzD2eGMAeAfgjP9kPgzhTVe",
+      "models": [
+        {
+          "id": "gemini-2.5-pro",
+          "name": "Gemini 2.5 Pro - 长上下文",
+          "context_window": 1000000,
+          "description": "用于长上下文读取和分析"
+        },
+        {
+          "id": "gemini-2.5-flash",
+          "name": "Gemini 2.5 Flash - 快速响应",
+          "context_window": 1000000,
+          "description": "快速响应，适合简单任务"
+        }
+      ]
+    }
+  ]
+}
