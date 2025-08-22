@@ -2,11 +2,9 @@
   "mcpServers": {
     "zen": {
       "command": "python",
-      "args": [
-        "/Users/zhouzheng/zen-mcp-server/zen_server_wrapper.py"
-      ],
+      "args": ["/Users/zhouzheng/Library/CloudStorage/OneDrive-个人/学习资源/实验室/个人论文/自纠错数控系统大模型/PaperWithCode/zen-mcp-server/server.py"],
       "env": {
-        "PYTHONPATH": "/Users/zhouzheng/zen-mcp-server"
+        "PYTHONPATH": "/Users/zhouzheng/Library/CloudStorage/OneDrive-个人/学习资源/实验室/个人论文/自纠错数控系统大模型/PaperWithCode/zen-mcp-server"
       }
     }
   }

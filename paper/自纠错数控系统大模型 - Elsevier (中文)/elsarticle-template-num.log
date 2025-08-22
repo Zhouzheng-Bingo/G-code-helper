@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2021.9.29)  2 AUG 2025 21:25
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2021.9.29)  22 AUG 2025 11:39
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -213,56 +213,19 @@ Package: iftex 2020/03/06 v1.0d TeX engine tests
 \Gm@layouthoffset=\dimen168
 \Gm@layoutvoffset=\dimen169
 \Gm@dimlist=\toks26
-) (/usr/local/texlive/2021/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
-Invalid UTF-8 byte or sequence at line 284 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 299 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 550 replaced by U+FFFD.
-Package: algorithm2e 2017/07/18 v5.2 algorithms environments
-\c@AlgoLine=\count287
-\algocf@hangindent=\skip61
- (/usr/local/texlive/2021/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
-Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
-\c@checkoddpage=\count288
-) (/usr/local/texlive/2021/texmf-dist/tex/latex/tools/xspace.sty
-Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
-) (/usr/local/texlive/2021/texmf-dist/tex/latex/relsize/relsize.sty
-Package: relsize 2013/03/29 ver 4.1
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/algorithms/algorithm.sty
+Invalid UTF-8 byte or sequence at line 11 replaced by U+FFFD.
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating environment
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count287
+\float@exts=\toks27
+\float@box=\box58
+\@float@everytoks=\toks28
+\@floatcapt=\box59
 )
-\skiptotal=\skip62
-\skiplinenumber=\skip63
-\skiprule=\skip64
-\skiphlne=\skip65
-\skiptext=\skip66
-\skiplength=\skip67
-\algomargin=\skip68
-\skipalgocfslide=\skip69
-\algowidth=\dimen170
-\inoutsize=\dimen171
-\inoutindent=\dimen172
-\interspacetitleruled=\dimen173
-\interspacealgoruled=\dimen174
-\interspacetitleboxruled=\dimen175
-\algocf@ruledwidth=\skip70
-\algocf@inoutbox=\box58
-\algocf@inputbox=\box59
-\AlCapSkip=\skip71
-\AlCapHSkip=\skip72
-\algoskipindent=\skip73
-\algocf@nlbox=\box60
-\algocf@hangingbox=\box61
-\algocf@untilbox=\box62
-\algocf@skipuntil=\skip74
-\algocf@capbox=\box63
-\algocf@lcaptionbox=\skip75
-\algoheightruledefault=\skip76
-\algoheightrule=\skip77
-\algotitleheightruledefault=\skip78
-\algotitleheightrule=\skip79
-\c@algocfline=\count289
-\c@algocfproc=\count290
-\c@algocf=\count291
-\algocf@algoframe=\box64
-\algocf@algobox=\box65
+\@float@every@algorithm=\toks29
+\c@algorithm=\count288
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/textgreek/textgreek.sty
 Package: textgreek 2011/10/09 v0.7 Greek symbols in text
 Package textgreek Info: Loading the definitions for the Greek fontencoding. on input line 39.
@@ -280,67 +243,68 @@ File: color.cfg 2016/01/02 v1.6 sample color configuration
 Package color Info: Driver file: xetex.def on input line 147.
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen176
-\lightrulewidth=\dimen177
-\cmidrulewidth=\dimen178
-\belowrulesep=\dimen179
-\belowbottomsep=\dimen180
-\aboverulesep=\dimen181
-\abovetopsep=\dimen182
-\cmidrulesep=\dimen183
-\cmidrulekern=\dimen184
-\defaultaddspace=\dimen185
-\@cmidla=\count292
-\@cmidlb=\count293
-\@aboverulesep=\dimen186
-\@belowrulesep=\dimen187
-\@thisruleclass=\count294
-\@lastruleclass=\count295
-\@thisrulewidth=\dimen188
+\heavyrulewidth=\dimen170
+\lightrulewidth=\dimen171
+\cmidrulewidth=\dimen172
+\belowrulesep=\dimen173
+\belowbottomsep=\dimen174
+\aboverulesep=\dimen175
+\abovetopsep=\dimen176
+\cmidrulesep=\dimen177
+\cmidrulekern=\dimen178
+\defaultaddspace=\dimen179
+\@cmidla=\count289
+\@cmidlb=\count290
+\@aboverulesep=\dimen180
+\@belowrulesep=\dimen181
+\@thisruleclass=\count291
+\@lastruleclass=\count292
+\@thisrulewidth=\dimen182
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/makecell/makecell.sty
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
-\rotheadsize=\dimen189
-\c@nlinenum=\count296
-\TeXr@lab=\toks27
+\rotheadsize=\dimen183
+\c@nlinenum=\count293
+\TeXr@lab=\toks30
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2020/10/26 v3.5g Customizing captions (AR)
  (/usr/local/texlive/2021/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2020/10/21 v2.2e caption3 kernel (AR)
-\captionmargin=\dimen190
-\captionmargin@=\dimen191
-\captionwidth=\dimen192
-\caption@tempdima=\dimen193
-\caption@indent=\dimen194
-\caption@parindent=\dimen195
-\caption@hangindent=\dimen196
+\captionmargin=\dimen184
+\captionmargin@=\dimen185
+\captionwidth=\dimen186
+\caption@tempdima=\dimen187
+\caption@indent=\dimen188
+\caption@parindent=\dimen189
+\caption@hangindent=\dimen190
 Package caption Info: elsarticle document class detected.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/caption/caption-elsarticle.sto
 File: caption-elsarticle.sto 2020/08/22 v2.0 Adaption of the caption package to the elsarticle document class (AR)
 ))
-\c@caption@flags=\count297
-\c@continuedfloat=\count298
+\c@caption@flags=\count294
+\c@continuedfloat=\count295
+Package caption Info: float package is loaded.
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/caption/subcaption.sty
 Package: subcaption 2020/10/07 v1.3j Sub-captions (AR)
-\c@subfigure=\count299
-\c@subtable=\count300
+\c@subfigure=\count296
+\c@subtable=\count297
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/fontspec/fontspec.sty
 Package: fontspec 2020/02/21 v2.7i Font selection for XeLaTeX and LuaLaTeX
  (/usr/local/texlive/2021/texmf-dist/tex/latex/fontspec/fontspec-xetex.sty
 Package: fontspec-xetex 2020/02/21 v2.7i Font selection for XeLaTeX and LuaLaTeX
-\l__fontspec_script_int=\count301
-\l__fontspec_language_int=\count302
-\l__fontspec_strnum_int=\count303
-\l__fontspec_tmp_int=\count304
-\l__fontspec_tmpa_int=\count305
-\l__fontspec_tmpb_int=\count306
-\l__fontspec_tmpc_int=\count307
-\l__fontspec_em_int=\count308
-\l__fontspec_emdef_int=\count309
-\l__fontspec_strong_int=\count310
-\l__fontspec_strongdef_int=\count311
-\l__fontspec_tmpa_dim=\dimen197
-\l__fontspec_tmpb_dim=\dimen198
-\l__fontspec_tmpc_dim=\dimen199
+\l__fontspec_script_int=\count298
+\l__fontspec_language_int=\count299
+\l__fontspec_strnum_int=\count300
+\l__fontspec_tmp_int=\count301
+\l__fontspec_tmpa_int=\count302
+\l__fontspec_tmpb_int=\count303
+\l__fontspec_tmpc_int=\count304
+\l__fontspec_em_int=\count305
+\l__fontspec_emdef_int=\count306
+\l__fontspec_strong_int=\count307
+\l__fontspec_strongdef_int=\count308
+\l__fontspec_tmpa_dim=\dimen191
+\l__fontspec_tmpb_dim=\dimen192
+\l__fontspec_tmpc_dim=\dimen193
  (/usr/local/texlive/2021/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2020/08/10 v2.0s Standard LaTeX package
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/fontspec/fontspec.cfg))) (/usr/local/texlive/2021/texmf-dist/tex/xelatex/xecjk/xeCJK.sty
@@ -349,21 +313,21 @@ Package: xeCJK 2020/10/19 v3.8.6 Typesetting CJK scripts with XeLaTeX
 Package: l3keys2e 2021-03-12 LaTeX2e option processing using LaTeX3 keys
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/l3packages/xtemplate/xtemplate.sty
 Package: xtemplate 2021-03-12 L3 Experimental prototype document functions
-\l__xtemplate_tmp_dim=\dimen256
-\l__xtemplate_tmp_int=\count312
+\l__xtemplate_tmp_dim=\dimen194
+\l__xtemplate_tmp_int=\count309
 \l__xtemplate_tmp_muskip=\muskip17
-\l__xtemplate_tmp_skip=\skip80
+\l__xtemplate_tmp_skip=\skip61
 )
-\l__xeCJK_tmp_int=\count313
-\l__xeCJK_tmp_box=\box66
-\l__xeCJK_tmp_dim=\dimen257
-\l__xeCJK_tmp_skip=\skip81
+\l__xeCJK_tmp_int=\count310
+\l__xeCJK_tmp_box=\box60
+\l__xeCJK_tmp_dim=\dimen195
+\l__xeCJK_tmp_skip=\skip62
  (/usr/local/texlive/2021/texmf-dist/tex/latex/ctex/ctexhook.sty
 Package: ctexhook 2021/03/14 v2.5.6 Document and package hooks (CTEX)
 )
-\g__xeCJK_space_factor_int=\count314
-\l__xeCJK_begin_int=\count315
-\l__xeCJK_end_int=\count316
+\g__xeCJK_space_factor_int=\count311
+\l__xeCJK_begin_int=\count312
+\l__xeCJK_end_int=\count313
 \c__xeCJK_CJK_class_int=\XeTeXcharclass1
 \c__xeCJK_FullLeft_class_int=\XeTeXcharclass2
 \c__xeCJK_FullRight_class_int=\XeTeXcharclass3
@@ -372,49 +336,49 @@ Package: ctexhook 2021/03/14 v2.5.6 Document and package hooks (CTEX)
 \c__xeCJK_NormalSpace_class_int=\XeTeXcharclass6
 \c__xeCJK_CM_class_int=\XeTeXcharclass7
 \c__xeCJK_HangulJamo_class_int=\XeTeXcharclass8
-\l__xeCJK_last_skip=\skip82
-\g__xeCJK_node_int=\count317
-\c__xeCJK_CJK_node_dim=\dimen258
-\c__xeCJK_CJK-space_node_dim=\dimen259
-\c__xeCJK_default_node_dim=\dimen260
-\c__xeCJK_default-space_node_dim=\dimen261
-\c__xeCJK_CJK-widow_node_dim=\dimen262
-\c__xeCJK_normalspace_node_dim=\dimen263
-\l__xeCJK_ccglue_skip=\skip83
-\l__xeCJK_ecglue_skip=\skip84
-\l__xeCJK_punct_kern_skip=\skip85
-\l__xeCJK_last_penalty_int=\count318
-\l__xeCJK_last_bound_dim=\dimen264
-\l__xeCJK_last_kern_dim=\dimen265
-\l__xeCJK_widow_penalty_int=\count319
+\l__xeCJK_last_skip=\skip63
+\g__xeCJK_node_int=\count314
+\c__xeCJK_CJK_node_dim=\dimen196
+\c__xeCJK_CJK-space_node_dim=\dimen197
+\c__xeCJK_default_node_dim=\dimen198
+\c__xeCJK_default-space_node_dim=\dimen199
+\c__xeCJK_CJK-widow_node_dim=\dimen256
+\c__xeCJK_normalspace_node_dim=\dimen257
+\l__xeCJK_ccglue_skip=\skip64
+\l__xeCJK_ecglue_skip=\skip65
+\l__xeCJK_punct_kern_skip=\skip66
+\l__xeCJK_last_penalty_int=\count315
+\l__xeCJK_last_bound_dim=\dimen258
+\l__xeCJK_last_kern_dim=\dimen259
+\l__xeCJK_widow_penalty_int=\count316
 
 Package xtemplate Info: Declaring object type 'xeCJK/punctuation' taking 0
 (xtemplate)             argument(s) on line 2341.
 
-\l__xeCJK_fixed_punct_width_dim=\dimen266
-\l__xeCJK_mixed_punct_width_dim=\dimen267
-\l__xeCJK_middle_punct_width_dim=\dimen268
-\l__xeCJK_fixed_margin_width_dim=\dimen269
-\l__xeCJK_mixed_margin_width_dim=\dimen270
-\l__xeCJK_middle_margin_width_dim=\dimen271
-\l__xeCJK_bound_punct_width_dim=\dimen272
-\l__xeCJK_bound_margin_width_dim=\dimen273
-\l__xeCJK_margin_minimum_dim=\dimen274
-\l__xeCJK_kerning_total_width_dim=\dimen275
-\l__xeCJK_same_align_margin_dim=\dimen276
-\l__xeCJK_different_align_margin_dim=\dimen277
-\l__xeCJK_kerning_margin_width_dim=\dimen278
-\l__xeCJK_kerning_margin_minimum_dim=\dimen279
-\l__xeCJK_bound_dim=\dimen280
-\l__xeCJK_reverse_bound_dim=\dimen281
-\l__xeCJK_margin_dim=\dimen282
-\l__xeCJK_minimum_bound_dim=\dimen283
-\l__xeCJK_kerning_margin_dim=\dimen284
-\g__xeCJK_family_int=\count320
-\l__xeCJK_fam_int=\count321
-\g__xeCJK_fam_allocation_int=\count322
-\l__xeCJK_verb_case_int=\count323
-\l__xeCJK_verb_exspace_skip=\skip86
+\l__xeCJK_fixed_punct_width_dim=\dimen260
+\l__xeCJK_mixed_punct_width_dim=\dimen261
+\l__xeCJK_middle_punct_width_dim=\dimen262
+\l__xeCJK_fixed_margin_width_dim=\dimen263
+\l__xeCJK_mixed_margin_width_dim=\dimen264
+\l__xeCJK_middle_margin_width_dim=\dimen265
+\l__xeCJK_bound_punct_width_dim=\dimen266
+\l__xeCJK_bound_margin_width_dim=\dimen267
+\l__xeCJK_margin_minimum_dim=\dimen268
+\l__xeCJK_kerning_total_width_dim=\dimen269
+\l__xeCJK_same_align_margin_dim=\dimen270
+\l__xeCJK_different_align_margin_dim=\dimen271
+\l__xeCJK_kerning_margin_width_dim=\dimen272
+\l__xeCJK_kerning_margin_minimum_dim=\dimen273
+\l__xeCJK_bound_dim=\dimen274
+\l__xeCJK_reverse_bound_dim=\dimen275
+\l__xeCJK_margin_dim=\dimen276
+\l__xeCJK_minimum_bound_dim=\dimen277
+\l__xeCJK_kerning_margin_dim=\dimen278
+\g__xeCJK_family_int=\count317
+\l__xeCJK_fam_int=\count318
+\g__xeCJK_fam_allocation_int=\count319
+\l__xeCJK_verb_case_int=\count320
+\l__xeCJK_verb_exspace_skip=\skip67
  (/usr/local/texlive/2021/texmf-dist/tex/xelatex/xecjk/xeCJK.cfg
 File: xeCJK.cfg 2020/10/19 v3.8.6 Configuration file for xeCJK package
 ))
@@ -598,18 +562,32 @@ Overfull \hbox (2.608pt too wide) has occurred while \output is active
 [1
 
 
-] [2] [3] [4] [5] [6] [7] (./elsarticle-template-num.bbl
+] [2] [3] [4] [5] [6] [7] [8]
+Overfull \hbox (21.30673pt too wide) in paragraph at lines 572--573
+[] $\OML/cmm/m/it/12 semantic[]score \OT1/cmr/m/n/12 = [](\OML/cmm/m/it/12 params:description; template:description\OT1/cmr/m/n/12 )$ 
+ []
+
+[9] [10] [11]
+Overfull \hbox (76.9543pt too wide) in paragraph at lines 684--686
+[]\TU/lmr/bx/n/12 if $\OML/cmm/m/it/12 syntax[]result:hasError$ \TU/lmr/bx/n/12 then return $[]\OT1/cmr/m/n/12 ([]\OML/cmm/m/it/12 ; syntax[]result:errors\OT1/cmr/m/n/12 )$ 
+ []
+
+[12] [13]
+Missing character: There is no ✓ (U+2713) in font [lmmono12-regular]:!
+Missing character: There is no ⚠ (U+26A0) in font [lmmono12-regular]:!
+Missing character: There is no ✓ (U+2713) in font [lmmono12-regular]:!
+ (./elsarticle-template-num.bbl
 
 Package natbib Warning: Empty `thebibliography' environment on input line 8.
 
-) [8] (./elsarticle-template-num.aux) ) 
+) [14] (./elsarticle-template-num.aux) ) 
 Here is how much of TeX's memory you used:
- 11608 strings out of 476919
- 257771 string characters out of 5821840
- 639374 words of memory out of 5000000
- 31440 multiletter control sequences out of 15000+600000
+ 10851 strings out of 476919
+ 248609 string characters out of 5821840
+ 616221 words of memory out of 5000000
+ 30688 multiletter control sequences out of 15000+600000
  409982 words of font info for 79 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 83i,9n,88p,636b,450s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 83i,9n,88p,636b,853s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on elsarticle-template-num.pdf (8 pages).
+Output written on elsarticle-template-num.pdf (14 pages).
