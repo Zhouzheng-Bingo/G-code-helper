@@ -1,0 +1,15 @@
+2025-08-26 17:44:31,573 - modelscope - INFO - PyTorch version 2.2.2 Found.
+2025-08-26 17:44:31,574 - modelscope - INFO - Loading ast index from /Users/zhouzheng/.cache/modelscope/ast_indexer
+2025-08-26 17:44:31,833 - modelscope - INFO - Loading done! Current index file version is 1.12.0, with md5 08cc489033b2064876a8fbab88e92028 and a total number of 964 components indexed
+2025-08-26 17:44:38,114 - modelscope - WARNING - Model revision not specified, use revision: v1.1.0
+2025-08-26 17:44:38,285 - modelscope - INFO - initiate model from /Users/zhouzheng/.cache/modelscope/hub/iic/nlp_corom_sentence-embedding_chinese-base
+2025-08-26 17:44:38,285 - modelscope - INFO - initiate model from location /Users/zhouzheng/.cache/modelscope/hub/iic/nlp_corom_sentence-embedding_chinese-base.
+2025-08-26 17:44:38,287 - modelscope - INFO - initialize model from /Users/zhouzheng/.cache/modelscope/hub/iic/nlp_corom_sentence-embedding_chinese-base
+2025-08-26 17:44:40,513 - modelscope - WARNING - No preprocessor field found in cfg.
+2025-08-26 17:44:40,514 - modelscope - WARNING - No val key and type key found in preprocessor domain of configuration.json file.
+2025-08-26 17:44:40,514 - modelscope - WARNING - Cannot find available config to build preprocessor at mode inference, current config: {'model_dir': '/Users/zhouzheng/.cache/modelscope/hub/iic/nlp_corom_sentence-embedding_chinese-base'}. trying to build by task and model information.
+2025-08-26 17:44:40,590 - modelscope - INFO - cuda is not available, using cpu instead.
+2025-08-26 17:44:40,592 - modelscope - WARNING - No preprocessor field found in cfg.
+2025-08-26 17:44:40,592 - modelscope - WARNING - No val key and type key found in preprocessor domain of configuration.json file.
+2025-08-26 17:44:40,592 - modelscope - WARNING - Cannot find available config to build preprocessor at mode inference, current config: {'model_dir': '/Users/zhouzheng/.cache/modelscope/hub/iic/nlp_corom_sentence-embedding_chinese-base', 'sequence_length': 128}. trying to build by task and model information.
+setting environment variables: OrderedDict([('PY_ENVIRONMENT', 'local'), ('PY_DEBUG', 'true'), ('LLM_BASE_URL', 'https://open.bigmodel.cn/api/paas/v4/'), ('LLM_API_KEY', 'bdae524145564428bfbb0676d5ec4b07.uy0YzYARTfcXwFBP'), ('MODEL_NAME', 'glm-4'), ('ZHIPUAI_API_KEY', 'YOUR API-KEY'), ('ORGANIZATION_NAME', 'xxx团队'), ('GRADIO_ANALYTICS_ENABLED', 'False')])

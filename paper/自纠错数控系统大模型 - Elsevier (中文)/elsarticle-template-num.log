@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2021.9.29)  22 AUG 2025 11:39
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2021.9.29)  4 SEP 2025 11:18
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -563,12 +563,12 @@ Overfull \hbox (2.608pt too wide) has occurred while \output is active
 
 
 ] [2] [3] [4] [5] [6] [7] [8]
-Overfull \hbox (21.30673pt too wide) in paragraph at lines 572--573
+Overfull \hbox (21.30673pt too wide) in paragraph at lines 569--570
 [] $\OML/cmm/m/it/12 semantic[]score \OT1/cmr/m/n/12 = [](\OML/cmm/m/it/12 params:description; template:description\OT1/cmr/m/n/12 )$ 
  []
 
 [9] [10] [11]
-Overfull \hbox (76.9543pt too wide) in paragraph at lines 684--686
+Overfull \hbox (76.9543pt too wide) in paragraph at lines 681--683
 []\TU/lmr/bx/n/12 if $\OML/cmm/m/it/12 syntax[]result:hasError$ \TU/lmr/bx/n/12 then return $[]\OT1/cmr/m/n/12 ([]\OML/cmm/m/it/12 ; syntax[]result:errors\OT1/cmr/m/n/12 )$ 
  []
 
@@ -582,10 +582,10 @@ Package natbib Warning: Empty `thebibliography' environment on input line 8.
 
 ) [14] (./elsarticle-template-num.aux) ) 
 Here is how much of TeX's memory you used:
- 10851 strings out of 476919
- 248609 string characters out of 5821840
+ 10849 strings out of 476919
+ 248587 string characters out of 5821840
  616221 words of memory out of 5000000
- 30688 multiletter control sequences out of 15000+600000
+ 30686 multiletter control sequences out of 15000+600000
  409982 words of font info for 79 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  83i,9n,88p,636b,853s stack positions out of 5000i,500n,10000p,200000b,80000s
