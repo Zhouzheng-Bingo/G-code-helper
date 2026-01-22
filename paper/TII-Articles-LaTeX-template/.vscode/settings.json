@@ -1,0 +1,23 @@
+{
+  "latex-workshop.latex.recipe.default": "latexmk (pdfLaTeX)",
+  "latex-workshop.latex.tools": [
+    {
+      "name": "latexmk-pdflatex",
+      "command": "latexmk",
+      "args": [
+        "-pdf",
+        "-pdflatex=pdflatex -synctex=1 -interaction=nonstopmode -file-line-error %O %S",
+        "-outdir=%OUTDIR%",
+        "%DOC%"
+      ]
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "latexmk (pdfLaTeX)",
+      "tools": [
+        "latexmk-pdflatex"
+      ]
+    }
+  ]
+}

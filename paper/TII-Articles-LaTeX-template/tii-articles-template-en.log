@@ -1,0 +1,635 @@
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2021.9.29)  14 JAN 2026 20:56
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**/Users/zhouzheng/Library/CloudStorage/OneDrive-个人/学习资源/实验室/个人论文/自纠错数控系统大模型/PaperWithCode/G-code-helper/paper/TII-Articles-LaTeX-template/tii-articles-template-en
+(/Users/zhouzheng/Library/CloudStorage/OneDrive-个人/学习资源/实验室/个人论文/自纠错数控系统大模型/PaperWithCode/G-code-helper/paper/TII-Articles-LaTeX-template/tii-articles-template-en.tex
+LaTeX2e <2020-10-01> patch level 4
+L3 programming layer <2021-02-18> (./ieeecolor.cls
+
+LaTeX Warning: You have requested document class `ieeecolor',
+               but the document class provides `IEEEtran'.
+
+Document Class: IEEEtran 2002/11/18 revision V1.6b by Michael Shell
+-- See the "IEEEtran_HOWTO" manual for usage information.
+-- The source comments contain changelog notes.
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2020/02/24 v1.2b Standard LaTeX Color (DPC)
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: xetex.def on input line 147.
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-def/xetex.def
+File: xetex.def 2021/03/18 v5.0k Graphics/color driver for xetex
+))
+\@draftversionrule=\dimen138
+\@IEEEtrantmpdimenA=\dimen139
+\@IEEEtrantmpdimenB=\dimen140
+\@IEEEtrantmpcountA=\count175
+\@IEEEtrantmpcountB=\count176
+\@IEEEtrantmptoksA=\toks15
+LaTeX Font Info:    Trying to load font information for TU+ptm on input line 834.
+LaTeX Font Info:    No file TUptm.fd. on input line 834.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/m/n' undefined
+(Font)              using `TU/lmr/m/n' instead on input line 834.
+
+\@IEEEnormalsizefontbaselineskip=\skip47
+-- This is a 10 point document.
+\normalsizebaselineskip=\skip48
+\normaljot=\skip49
+
+LaTeX Font Warning: Font shape `TU/ptm/bx/n' undefined
+(Font)              using `TU/ptm/m/n' instead on input line 1180.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/m/it' undefined
+(Font)              using `TU/ptm/m/n' instead on input line 1180.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/bx/it' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 1180.
+
+\IEEEilabelindentA=\dimen141
+\IEEEilabelindentB=\dimen142
+\IEEEilabelindent=\dimen143
+\IEEEelabelindent=\dimen144
+\IEEEdlabelindent=\dimen145
+\labelindent=\dimen146
+\IEEEiednormlabelsep=\dimen147
+\IEEEiedmathlabelsep=\dimen148
+\IEEEiedtopsep=\skip50
+\c@section=\count177
+\c@subsection=\count178
+\c@subsubsection=\count179
+\c@paragraph=\count180
+\c@IEEEsubequation=\count181
+\abovecaptionskip=\skip51
+\belowcaptionskip=\skip52
+\figbox=\box47
+\c@figure=\count182
+\c@query=\count183
+\c@qry=\count184
+\c@nquery=\count185
+\c@tquery=\count186
+\c@equery=\count187
+\c@eqry=\count188
+\c@edquery=\count189
+\c@etquery=\count190
+\c@table=\count191
+\@IEEEeqnnumcols=\count192
+\@IEEEeqncolcnt=\count193
+\firstpagerule=\skip53
+\logowidth=\skip54
+\@IEEEtmpitemindent=\dimen149
+\c@biography=\count194
+\c@edbiography=\count195
+LaTeX Info: Redefining \sf on input line 4869.
+\@IEEEtranrubishbin=\box48
+) (./generic.sty) (/usr/local/texlive/2021/texmf-dist/tex/latex/cite/cite.sty
+LaTeX Info: Redefining \cite on input line 302.
+LaTeX Info: Redefining \nocite on input line 332.
+Package: cite 2015/02/27  v 5.5
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2020/09/23 v2.17i AMS math features
+\@mathmargin=\skip55
+
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks16
+\ex@=\dimen150
+)) (/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen151
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count196
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count197
+\leftroot@=\count198
+LaTeX Info: Redefining \overline on input line 399.
+\classnum@=\count199
+\DOTSCASE@=\count266
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box49
+\strutbox@=\box50
+\big@size=\dimen152
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count267
+\c@MaxMatrixCols=\count268
+\dotsspace@=\muskip16
+\c@parentequation=\count269
+\dspbrk@lvl=\count270
+\tag@help=\toks17
+\row@=\count271
+\column@=\count272
+\maxfields@=\count273
+\andhelp@=\toks18
+\eqnshift@=\dimen153
+\alignsep@=\dimen154
+\tagshift@=\dimen155
+\tagwidth@=\dimen156
+\totwidth@=\dimen157
+\lineht@=\dimen158
+\@envbody=\toks19
+\multlinegap=\skip56
+\multlinetaggap=\skip57
+\mathdisplay@stack=\toks20
+LaTeX Info: Redefining \[ on input line 2923.
+LaTeX Info: Redefining \] on input line 2924.
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)) (/usr/local/texlive/2021/texmf-dist/tex/latex/algorithms/algorithmic.sty
+Invalid UTF-8 byte or sequence at line 11 replaced by U+FFFD.
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks21
+)
+\c@ALC@unique=\count274
+\c@ALC@line=\count275
+\c@ALC@rem=\count276
+\c@ALC@depth=\count277
+\ALC@tlm=\skip58
+\algorithmicindent=\skip59
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2020/09/09 v1.2b Enhanced LaTeX Graphics (DPC,SPQR)
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2020/08/30 v1.4c Standard LaTeX Graphics (DPC,SPQR)
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: xetex.def on input line 105.
+)
+\Gin@req@height=\dimen159
+\Gin@req@width=\dimen160
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
+File: l3backend-xetex.def 2021-03-18 L3 backend support: XeTeX
+ (|extractbb --version)
+\c__kernel_sys_dvipdfmx_version_int=\count278
+\l__color_backend_stack_int=\count279
+\g__color_backend_stack_int=\count280
+\g__graphics_track_int=\count281
+\l__pdf_internal_box=\box51
+\g__pdf_backend_object_int=\count282
+\g__pdf_backend_annotation_int=\count283
+\g__pdf_backend_link_int=\count284
+) (./tii-articles-template-en.aux)
+\openout1 = `tii-articles-template-en.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 12.
+LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 12.
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 12.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/it' undefined
+(Font)              using `TU/ptm/bx/it' instead on input line 12.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 12.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/it' undefined
+(Font)              using `TU/ptm/bx/it' instead on input line 12.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 12.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/it' undefined
+(Font)              using `TU/ptm/bx/it' instead on input line 12.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 12.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/it' undefined
+(Font)              using `TU/ptm/bx/it' instead on input line 12.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 12.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/it' undefined
+(Font)              using `TU/ptm/bx/it' instead on input line 12.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 12.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/it' undefined
+(Font)              using `TU/ptm/bx/it' instead on input line 12.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 12.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/it' undefined
+(Font)              using `TU/ptm/bx/it' instead on input line 12.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 12.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/it' undefined
+(Font)              using `TU/ptm/bx/it' instead on input line 12.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 12.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/it' undefined
+(Font)              using `TU/ptm/bx/it' instead on input line 12.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 12.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/it' undefined
+(Font)              using `TU/ptm/bx/it' instead on input line 12.
+
+Package color Info: Redefining color nblue on input line 32.
+Package color Info: Redefining color mblue on input line 32.
+LaTeX Font Info:    Trying to load font information for TU+phv on input line 32.
+LaTeX Font Info:    No file TUphv.fd. on input line 32.
+
+LaTeX Font Warning: Font shape `TU/phv/m/n' undefined
+(Font)              using `TU/lmr/m/n' instead on input line 32.
+
+
+LaTeX Font Warning: Font shape `TU/phv/m/it' undefined
+(Font)              using `TU/phv/m/n' instead on input line 32.
+
+Package color Info: Redefining color nblue on input line 32.
+Package color Info: Redefining color mblue on input line 32.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 32.
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 32.
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+Package color Info: Redefining color nblue on input line 34.
+Package color Info: Redefining color mblue on input line 34.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/m/n' instead on input line 34.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/it' undefined
+(Font)              using `TU/phv/b/n' instead on input line 34.
+
+Package color Info: Redefining color nblue on input line 57.
+Package color Info: Redefining color mblue on input line 57.
+
+Underfull \hbox (badness 3514) in paragraph at lines 57--62
+\TU/phv/b/it/9 order, separated by commas. For a list of suggested
+ []
+
+
+Overfull \hbox (12.11401pt too wide) in paragraph at lines 57--62
+[]$
+ []
+
+LaTeX Font Info:    Trying to load font information for T1+phv on input line 64.
+(/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/t1phv.fd
+File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
+)
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 66.
+
+
+Underfull \hbox (badness 5417) in paragraph at lines 66--75
+[]\TU/phv/b/n/10 HIS document is a template for L[]T[]X. If
+ []
+
+
+Underfull \hbox (badness 7415) in paragraph at lines 66--75
+\TU/phv/b/n/10 you are reading a paper or PDF version
+ []
+
+
+Underfull \hbox (badness 4217) in paragraph at lines 66--75
+\TU/phv/b/n/10 of this document, please download the electronic
+ []
+
+
+Underfull \hbox (badness 4036) in paragraph at lines 66--75
+\TU/phv/b/n/10 file, trans_jour.tex, from the IEEE Web site at
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 66--75
+[]$ \TU/phv/b/n/10 so
+ []
+
+
+Underfull \hbox (badness 2495) in paragraph at lines 66--75
+\TU/phv/b/n/10 style and sample files from the same Web page.
+ []
+
+
+Underfull \hbox (badness 1430) in paragraph at lines 66--75
+\TU/phv/b/n/10 You can also explore using the Overleaf editor at
+ []
+
+
+Overfull \hbox (18.15pt too wide) in paragraph at lines 66--75
+[]$
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 66--75
+[]$
+ []
+
+Invalid UTF-8 byte or sequence at line 118 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 118 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 118 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 118 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 118 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 118 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 118 replaced by U+FFFD.
+File: TII.eps Graphic file (type eps)
+<TII.eps>
+
+Overfull \hbox (259.0pt too wide) has occurred while \output is active
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) has occurred while \output is active
+[]
+ []
+
+
+Overfull \vbox (24.89651pt too high) has occurred while \output is active []
+
+ [1
+
+
+]
+LaTeX Font Info:    Trying to load font information for TU+pcr on input line 139.
+LaTeX Font Info:    No file TUpcr.fd. on input line 139.
+
+
+LaTeX Font Warning: Font shape `TU/pcr/m/n' undefined
+(Font)              using `TU/lmr/m/n' instead on input line 139.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/m/sc' undefined
+(Font)              using `TU/ptm/m/n' instead on input line 155.
+
+
+LaTeX Font Warning: Font shape `TU/pcr/m/it' undefined
+(Font)              using `TU/pcr/m/n' instead on input line 182.
+
+Invalid UTF-8 byte or sequence at line 220 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 220 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 220 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 220 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 220 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 220 replaced by U+FFFD.
+File: fig1.eps Graphic file (type eps)
+<fig1.eps>
+
+Underfull \hbox (badness 10000) in paragraph at lines 239--240
+[]\TU/ptm/m/sc/10 A general IEEE styleguide is available at
+ []
+
+
+Overfull \vbox (5.0pt too high) has occurred while \output is active []
+
+ [2]
+\width=\dimen161
+
+Overfull \hbox (2.616pt too wide) in paragraph at lines 271--271
+[]\TU/phv/m/n/8 Symbol| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 282--282
+[]\TU/phv/m/n/8 magnetic field
+ []
+
+
+Underfull \hbox (badness 3746) in paragraph at lines 294--294
+[]\TU/phv/m/n/8 specific magnetiza-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 300--300
+[]\TU/phv/m/n/8 magnetic
+ []
+
+
+Underfull \hbox (badness 5091) in paragraph at lines 312--312
+[]\TU/phv/m/n/8 relative permeabil-
+ []
+
+
+Underfull \hbox (badness 5133) in paragraph at lines 318--318
+[]\TU/phv/m/n/8 demagnetizing fac-
+ []
+
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 269--329
+[][]
+ []
+
+
+Overfull \vbox (5.0pt too high) has occurred while \output is active []
+
+ [3]
+Underfull \hbox (badness 2435) in paragraph at lines 378--383
+[]\TU/ptm/m/sc/10 The term color space refers to the entire sum
+ []
+
+
+Underfull \hbox (badness 1762) in paragraph at lines 378--383
+\TU/ptm/m/sc/10 of colors that can be represented within the said
+ []
+
+
+Underfull \hbox (badness 3209) in paragraph at lines 378--383
+\TU/ptm/m/sc/10 medium. For our purposes, the three main color
+ []
+
+
+Overfull \vbox (5.0pt too high) has occurred while \output is active []
+
+ [4]
+Underfull \hbox (badness 2644) in paragraph at lines 569--577
+[]\TU/ptm/m/sc/10 Contributions to the Transactions, Journals, and
+ []
+
+
+Underfull \hbox (badness 1755) in paragraph at lines 569--577
+\TU/ptm/m/sc/10 Letters may be submitted electronically on IEEE’s
+ []
+
+
+Underfull \hbox (badness 5260) in paragraph at lines 569--577
+\TU/ptm/m/sc/10 ScholarOne® Manuscripts. You can get a listing
+ []
+
+
+Overfull \hbox (7.20999pt too wide) in paragraph at lines 569--577
+[]$
+ []
+
+
+Overfull \vbox (5.0pt too high) has occurred while \output is active []
+
+ [5]
+Underfull \hbox (badness 1755) in paragraph at lines 617--624
+\TU/ptm/m/sc/10 approvals and/or security clearances. For additional
+ []
+
+
+Overfull \hbox (37.01999pt too wide) in paragraph at lines 617--624
+[]$
+ []
+
+
+Overfull \vbox (5.0pt too high) has occurred while \output is active []
+
+ [6]
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 705.
+
+
+Overfull \vbox (5.0pt too high) has occurred while \output is active []
+
+ [7]
+Underfull \hbox (badness 10000) in paragraph at lines 783--786
+[]\TU/phv/m/n/8 The Terahertz Wave eBook. ZOmega Ter-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 783--786
+\TU/phv/m/n/8 ahertz Corp., 2014. [Online]. Available:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 783--786
+[]$\TU/phv/m/n/8 .
+ []
+
+
+Underfull \hbox (badness 6016) in paragraph at lines 787--791
+\TU/phv/m/n/8 1987, Accessed on: Feb. 28, 2010, [Online] Available:
+ []
+
+
+Underfull \hbox (badness 2884) in paragraph at lines 803--804
+[]\TU/phv/m/n/8 R. J. Hijmans and J. van Etten, “Raster: Geographic
+ []
+
+
+Underfull \hbox (badness 6364) in paragraph at lines 803--804
+\TU/phv/m/n/8 analysis and modeling with raster data,” R Package
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 803--804
+\TU/phv/m/n/8 Version 2.0-12, Jan. 12, 2012. [Online]. Available:
+ []
+
+
+Overfull \hbox (19.04001pt too wide) in paragraph at lines 805--808
+[]$\TU/phv/m/n/8 ,
+ []
+
+File: a1.eps Graphic file (type eps)
+<a1.eps>
+File: a1.eps Graphic file (type eps)
+<a1.eps>
+File: a2.eps Graphic file (type eps)
+<a2.eps>
+File: a2.eps Graphic file (type eps)
+<a2.eps>
+
+Overfull \vbox (5.0pt too high) has occurred while \output is active []
+
+ [8]
+File: a3.eps Graphic file (type eps)
+<a3.eps>
+File: a3.eps Graphic file (type eps)
+<a3.eps>
+
+Overfull \vbox (5.0pt too high) has occurred while \output is active []
+
+ [9
+
+] (./tii-articles-template-en.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 3187 strings out of 476919
+ 46405 string characters out of 5821840
+ 373800 words of memory out of 5000000
+ 23139 multiletter control sequences out of 15000+600000
+ 423843 words of font info for 80 fonts, out of 8000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 68i,19n,74p,782b,458s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+Output written on tii-articles-template-en.pdf (9 pages).
