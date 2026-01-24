@@ -3,6 +3,7 @@
 \usepackage{generic}
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithm}
 \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{textcomp}
@@ -120,59 +121,67 @@ Tao 等提出结合语法与格式约束的程序综合手段，将语法检查�
 
 针对前述不足，本文构建一套自动化数控编程的统一框架。利用知识图谱对工艺规则、设备能力及参数逻辑进行结构化建模和约束，引导多环节推理和受控代码生成，并将分层验证与迭代修正机制整合进生成流程，以此提升产出结果的可追溯程度、验证效果及工程实用性。研究同时借鉴具身智能的系统架构，将数控设备作为执行单元，将知识与模型作为认知支撑，通过交互澄清、生成、验证及反馈的迭代逻辑实现复杂任务的稳定求解。
 
-\section{Proposed Framework}
-\label{sec:proposed-framework}
+\section{Methodology}
+\label{sec:methodology}
 
-本节给出知识图谱增强大语言模型的自动化数控编程框架设计。该框架以“语义理解—知识约束—受控生成—分级验证—迭代修正”为主线，将开放式自然语言需求映射为可执行且可审计的 G 代码程序。系统的整体结构如图\ref{fig:system-framework}所示，其中知识图谱提供了工艺知识的结构化表达与约束条件，LLM 负责语义解析与策略推理，验证与仿真模块提供闭环反馈以提升可靠性。
+如 Fig.~\ref{fig:methodology-framework} 所示，本文介绍一种基于知识图谱增强的数控编程方案。整体流程由四个相互衔接的阶段组成：1) 工作流组织与任务分解；2) Offline Template Construction；3) LLM Agent \& Reasoning；4) Synthesis \& Verification。这套方案结合多阶段协同推理与迭代校验逻辑，能够将自然语言形式的加工需求转化为安全可靠的可执行程序。本节将根据上述阶段依次介绍核心方法及实现细节。
 
-\subsection{Problem Definition and Design Goals}
 
-面向车削、铣削等数控加工场景，用户以自然语言给出任务描述 $u$，并伴随现场加工上下文 $c$（如机床型号、控制器方言、工件坐标系、刀具配置、材料与余量等）。系统目标是生成 G 代码序列 $y=\{l_1,l_2,\dots,l_T\}$，使其满足以下要求：
-\begin{itemize}
-\item \textbf{可执行性：}符合控制器语法与基本格式规范，能够被解析并执行。
-\item \textbf{安全性：}满足设备能力与工艺安全约束（如坐标边界、进给/转速范围、换刀安全动作等）。
-\item \textbf{工艺一致性：}生成策略与用户意图一致，参数之间逻辑自洽，并与工艺模板/经验相匹配。
-\item \textbf{可追溯性：}关键决策具备知识依据与验证证据，便于定位错误来源与进行修复。
-\end{itemize}
 
-为实现上述目标，本文采用知识图谱 $\mathcal{G}$ 表达加工知识与约束，并将其作为 LLM 推理与模板渲染的外部支撑，构建函数映射：
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.98\columnwidth]{Overall workflow of the LLM-KG CNC programming system.png}
+\caption{Overall workflow of the LLM-KG CNC programming system.}
+\label{fig:methodology-framework}
+\end{figure}
+
+\begin{algorithm}[!t]
+\caption{Closed-loop knowledge-graph-enhanced G-code generation (P1--P3)}
+\label{alg:closed-loop-gcode}
+\begin{algorithmic}[1]
+\REQUIRE User instruction $u$, context $c$, knowledge graph $\mathcal{G}$ (Neo4j), threshold $\tau$
+\ENSURE Final G-code $y$ and validation report $R$
+\STATE \textbf{Offline:} curate templates and update Neo4j (\textit{SubProcess.code})
+\STATE Normalize $(u', c') \leftarrow \text{Normalize}(u,c)$
+\STATE \textbf{P3:} $(p,f,conf) \leftarrow \text{IntentParse}(u', c')$
+\IF{$conf < \tau$}
+  \STATE $(p,f) \leftarrow \text{SelfReflect}(u', c', p,f)$
+\ENDIF
+\STATE \textbf{P1:} $C \leftarrow \text{KGQuery}(p,f,c';\mathcal{G})$ \hfill (Cypher candidates)
+\STATE \textbf{P2:} $prompt \leftarrow \text{AssemblePrompt}(u',c',C,\text{session})$
+\STATE $m^{\ast} \leftarrow \text{SelectTemplate}(prompt, C)$
+\STATE $y \leftarrow \text{Synthesize}(m^{\ast}, c')$ \hfill (execute \textit{SubProcess.code})
+\STATE $R \leftarrow \text{Verify}(y)$ \hfill (syntax/range/LLM)
+\WHILE{$R.\text{pass} = \text{False}$}
+  \STATE $(u',c') \leftarrow \text{Refine}(u',c',R)$
+  \STATE \textbf{P1--P3} repeat to update $m^{\ast}$ and $y$
+  \STATE $R \leftarrow \text{Verify}(y)$
+\ENDWHILE
+\RETURN $(y, R)$
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Offline Template Construction}
+
+The offline stage aims to solidify domain expertise into reusable and auditable artifacts. Specifically, the process taxonomy (six major process categories and their sub-processes) is represented as \textit{Process/SubProcess} nodes with \textit{INCLUDES} relations, while executable templates are stored in Neo4j as code strings in \textit{SubProcess.code}. Template authoring is human-in-the-loop: experts review machining logic and controller constraints, optionally grounding decisions with documentation retrieval (e.g., GraphRAG references). The final templates are committed into the graph database via Cypher updates, providing stable candidates for online retrieval.
+
+\subsection{LLM Agent \& Reasoning (P1--P3)}
+
+Given a user instruction $u$ and runtime context $c$ (machine/controller settings and session history), the agent first performs intent routing to distinguish machining tasks from knowledge queries. For machining tasks, it predicts the process type $p$ and sub-process $f$ with a confidence score $conf$. A self-reflection mechanism is triggered when $conf<\tau$ (with $\tau=0.7$ in our implementation), prompting the model to re-examine potential keyword omissions and ambiguities.
+
+The agent maintains a session memory that stores collected parameters and dialog history. The task planner decomposes the query and orchestrates tool calls. We use three staged plans to keep the pipeline controllable: P1 invokes tools and performs Cypher-based KG retrieval; P2 assembles a complete prompt by combining KG results, session parameters, and controller rules; and P3 drives the final reasoning for selection and output.
+
+\subsection{KG Retrieval \& G-code Synthesis}
+
+In P1, the KG retriever queries Neo4j and retrieves candidate templates (i.e., \textit{SubProcess.code}) associated with the identified process. The template selector ranks candidates using a multi-criteria strategy (LLM compatibility, parameter coverage, semantic consistency, and usage prior). After selecting $m^{\ast}$, the synthesis module executes the code stored in \textit{SubProcess.code} to instantiate the corresponding process class and generate the G-code program $y$. Optional post-processing can be applied to ensure controller-specific formatting.
+
+\subsection{Synthesis \& Three-level Verification with Visual Feedback}
+
+To ensure safety and executability, we adopt a three-level verification: (i) \textit{syntax rules} to catch malformed lines and illegal command patterns, (ii) \textit{parameter range checks} for critical fields (e.g., feed rate and spindle speed), and (iii) \textit{LLM deep verification} for semantic and process-level issues, producing structured issues and improvement suggestions. The final verification score aggregates the three dimensions with safety prioritized:
 \begin{equation}
-    y = f(u, c, \mathcal{G}; \theta),
+    s_{\text{overall}} = 0.5\,s_{\text{safety}} + 0.25\,s_{\text{eff}} + 0.25\,s_{\text{std}}.
 \end{equation}
-其中 $\theta$ 表示大模型与工具链的参数化组件。与直接端到端生成不同，$f(\cdot)$ 被拆解为多阶段可验证流程，使风险在早期被发现并可控修正。
-
-\subsection{Overall Workflow}
-
-框架将自动化数控编程划分为四个核心阶段：
-\begin{enumerate}
-\item \textbf{意图解析与任务建模：}将自然语言 $u$ 解析为结构化任务表示，包括工艺类型、加工特征、关键约束与显式参数。
-\item \textbf{参数补全与一致性推理：}针对缺失槽位触发交互式澄清或基于知识的推理补全，并进行基本一致性检查。
-\item \textbf{知识引导的受控生成：}在 $\mathcal{G}$ 中检索候选工艺模板与规则节点，结合参数覆盖度与语义匹配选择生成路径，完成模板渲染与代码组装。
-\item \textbf{分级验证与闭环修正：}执行语法与安全校验，并在需要时调用仿真验证获取风险反馈；若发现问题则回溯到对应阶段触发修正，直至通过验收。
-\end{enumerate}
-
-上述流程体现了具身智能视角下的“感知—决策—执行—反馈”链路：感知阶段统一解析用户意图与现场上下文；决策阶段由 LLM 在知识约束下完成策略推理；执行阶段输出 G 代码与工具调用；反馈阶段利用校验/仿真结果对前序决策进行修正，从而形成可持续优化的闭环。
-
-\subsection{Knowledge Graph Modeling for CNC Programming}
-
-知识图谱用于将工艺经验、设备能力与安全规范组织为可查询、可推理、可复用的结构化知识。本文将 $\mathcal{G}$ 设计为面向“任务—参数—模板—约束—验证”的五元组体系，核心实体包括：
-\begin{itemize}
-\item \textbf{Process/Feature：}加工工艺与特征（外圆、端面、槽、孔、倒角等）。
-\item \textbf{Parameter/Constraint：}参数槽位与约束规则（取值范围、依赖关系、单位与换算）。
-\item \textbf{Machine/Tool/Material：}机床能力、控制器方言、刀具与材料属性及其限制。
-\item \textbf{Template/Program Segment：}可复用的 G 代码模板节点与程序段结构。
-\item \textbf{Validation Rule/Failure Case：}校验规则、典型风险模式与修复建议映射。
-\end{itemize}
-
-实体之间通过关系边表达依赖与约束，例如“\textit{requires}”（工艺所需参数）、“\textit{compatible\_with}”（设备/刀具兼容性）、“\textit{limited\_by}”（参数受限条件）、“\textit{maps\_to}”（任务到模板映射）以及“\textit{has\_fix}”（错误到修复策略映射）。在推理阶段，系统依据任务标签与上下文在 $\mathcal{G}$ 中检索候选模板及其参数要求，并进一步通过约束节点过滤不安全或不兼容的方案，使生成过程具备可控的知识边界。
-
-\subsection{LLM-Centered Embodied Agent and Toolchain}
-
-在具身代理层，LLM 作为核心推理单元，负责：1) 将用户表达映射到结构化任务；2) 生成澄清问题并解析回复；3) 在候选模板之间进行选择并给出理由；4) 针对验证反馈生成可执行的修复方案。为避免“纯文本生成”带来的不可控风险，系统将关键步骤以工具调用的方式外置，包括：知识图谱查询、参数规范化与单位换算、模板渲染器、语法/安全检查器以及仿真验证接口。LLM 在每一步输出中同时给出“结果 + 依据 + 置信度”，当置信度低或验证失败时触发自反思与回溯重试，从而在不牺牲交互灵活性的前提下维持工程可控性。
-
-\subsection{Closed-Loop Verification and Iterative Refinement}
-
-验证与纠错模块将生成结果视为可迭代对象，并以“快速筛查 + 深度评估”的策略控制成本：首先进行语法与格式验证以排除明显错误；随后根据任务风险等级执行参数安全验证（例如速度/行程/余量的边界检查）；最后在需要时调用数字孪生/仿真模块进行运动学与干涉检查，获得可定位的错误证据（如超程、碰撞风险、路径不闭合等）。系统将验证证据回写到任务表示与 $\mathcal{G}$ 的故障模式节点，驱动 LLM 定位错误来源并生成修复建议，使得“生成—验证—修正”形成可追溯的闭环过程。
+If verification fails, the report $R$ provides evidence for refinement and triggers another iteration of P1--P3. In addition, an external Unity-based Sim2Real UI offers lightweight visual inspection; its visual feedback can assist the agent in iterative refinement when necessary.
 
 \begin{thebibliography}{00}
 \bibitem{yu2026transformation} Z. Yu, P. Zhang, and J. Shi, ``Transformation of industrial robotics with natural language models: Recent progress and future prospects,'' \emph{Robotics and Computer-Integrated Manufacturing}, vol. 97, p. 103113, 2026.
