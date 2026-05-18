@@ -257,9 +257,9 @@ G-code-helper/
 
 ## 📞 联系方式
 
-- 项目作者：[您的姓名]
-- 邮箱：[your-email@example.com]
-- 项目主页：https://github.com/your-username/G-code-helper
+- 项目作者：[Zheng Zhou]
+- 邮箱：[zhouzheng18@mails.ucas.ac.cn]
+- 项目主页：https://github.com/Zhouzheng-Bingo/G-code-helper
 
 ## 🙏 致谢
 
